@@ -1,0 +1,17 @@
+name: Generate GitHub wiki from wiki folder
+
+on:
+  push:
+    paths:
+      - 'markdown blog/**'
+    branches:
+      - master
+jobs:
+  update-wiki:
+    runs-on: ubuntu-latest
+    name: Update wiki
+    steps:
+    - uses: OrlovM/Wiki-Action@v1
+      with:
+        path: 'markdown blog'
+        token: ${{ secrets.GITHUB_TOKEN }}
