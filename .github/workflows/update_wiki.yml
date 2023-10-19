@@ -3,7 +3,7 @@ name: Generate GitHub wiki from wiki folder
 on:
   push:
     paths:
-      - 'wiki/**'
+      - 'markdown_blog/**'
     branches:
       - main
   workflow_dispatch:
@@ -11,9 +11,20 @@ on:
 jobs:
   update-wiki:
     runs-on: ubuntu-latest
-    name: Update wiki
     steps:
-    - uses: OrlovM/Wiki-Action@v1
-      with:
-        path: 'markdown_blog'
-        token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Checkout base code
+        uses: actions/checkout@v4
+        with:
+          path: base-code
+      - name: Checkout wiki code
+        uses: actions/checkout@v4
+        with:
+          repository: ${{github.repository}}.wiki
+          path: markdown_blog
+      - name: Push to wiki
+        run: |
+          cd markdown_blog
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add .
+          git diff-index --quiet HEAD || git commit -m "Update the wiki" && git push
