@@ -5,7 +5,9 @@ on:
     paths:
       - 'markdown blog/**'
     branches:
-      - master
+      - main
+  workflow_dispatch:
+
 jobs:
   update-wiki:
     runs-on: ubuntu-latest
