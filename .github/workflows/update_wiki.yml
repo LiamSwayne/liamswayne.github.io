@@ -3,7 +3,7 @@ name: Generate GitHub wiki from wiki folder
 on:
   push:
     paths:
-      - 'markdown_blog/**'
+      - 'wiki/**'
     branches:
       - main
   workflow_dispatch:
