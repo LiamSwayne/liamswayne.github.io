@@ -1,3 +1,5 @@
+# Stop learning JavaScript frameworks (& libraries)
+
 **_Face it, learning JavaScript is a waste of time. DOM manipulation: Who's Dom? Event handling: React added that like 10 years ago._**
 ### Issue № 1. Frameworks aren't made for you.
 
