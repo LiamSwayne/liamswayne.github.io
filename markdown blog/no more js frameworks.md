@@ -28,4 +28,5 @@ And let's not forget about libraries, which are often used purely for convenienc
 ---
 If you enjoyed this article, consider following me on Friendster & MySpace.
 
-Written by Liam Swayne, _"if we stopped writing tests, we'd have fewer failing cases"_
+Written by [Liam Swayne](https://github.com/LiamSwayne)
+> _"Cease writing tests, cease failing cases."_
