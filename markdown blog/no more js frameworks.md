@@ -14,8 +14,7 @@ A while ago I needed to scale a `div` like an SVG. The best implementation I fou
 
 The only problem with this code is that the page is \~75x larger than it needs to be. jQuery is loaded in for DOM, adding `84 KB` to the page. jQuery UI is also used, adding another `239 KB` to the page. And let's throw in a normalize css for standardization, adding another `2 KB`. Add in the actual code and the grand total is `329 KB`.
 
-Now here's my implementation:
-<a href="https://github.com/LiamSwayne/liamswayne.github.io/blob/main/docs/scaling.html" target="_blank">https://github.com/LiamSwayne/liamswayne.github.io/blob/main/docs/scaling.html</a>
+Now here's my implementation: https://github.com/LiamSwayne/liamswayne.github.io/blob/main/docs/scaling.html
 
 It's almost an exact copy but devoid of dependencies. As a result, it loads much faster and doesn't incur unnecessary bandwidth costs. In this case the costs were offloaded to The jQuery Foundation, but it's best to have no costs whatsoever. The size of the page has gone from `329 KB` to less than `4 KB` without any minification. That is a `98.7%` decrease. The CSS normalization is too small to matter and good practice in general, but the use of jQuery in what takes 20 lines of JavaScript is needless bloat that has no affect on the user experience other than making the page load slower. Web pages with multiple libraries or frameworks will never load as fast as vanilla JS. If you want to make a scalable website, an off-the-shelf framework is probably not your best option.
 ### Issue № 3. Vanilla JavaScript is a more transferable skill than any framework.
