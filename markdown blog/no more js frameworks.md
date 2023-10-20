@@ -28,4 +28,4 @@ And let's not forget about libraries, which are often used purely for convenienc
 ---
 If you enjoyed this article, consider following me on Friendster & MySpace.
 
-Written by Liam Swayne, _"shoddily proffessional"_
+Written by Liam Swayne, _"if we stopped writing tests, we'd have fewer failing cases"_
