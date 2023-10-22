@@ -1,14 +1,14 @@
 # Stop learning JavaScript frameworks (& libraries)
 
 **_Face it, learning JavaScript is a waste of time. DOM manipulation: Who's Dom? Event handling: React added that like 10 years ago._**
-### Issue № 1. Frameworks aren't made for you.
+## Issue № 1. Frameworks aren't made for you.
 
 JavaScript frameworks are designed *by corporations for corporations*. React is the perfect framework for Facebook because it was designed specifically for Facebook. Your website has different needs and while React may be powerful, you are essentially using a tool made to address highly specific needs and circumstances for general use.
 
 Most baked goods can be made with just an oven, bowl, whisk, pan, rolling pin, utensils, and measuring cups. Using a library is like stepping into a kitchen full of (inhale) six sizes of cannoli forms, a tart tamper, a lattice pie cutter, a ten-piece fondant sculpturing set, a bread lame that looks like a switchblade, and a cutting board hanging on the wall with `LICENSE` branded on it.
 
 If you're building a complex project that truly needs the capabilities of a framework, you may be better off creating your own framework from scratch. It takes less time than you think, you'll have a better understanding of its purpose than any other framework, and its functionalities will perfectly suit your needs.
-### Issue № 2. Bandwidth costs are waaaay higher.
+## Issue № 2. Bandwidth costs are waaaay higher.
 
 A while ago I needed to scale a `div` like an SVG. The best implementation I found was this one by Chris Coyier: https://codepen.io/chriscoyier/pen/VvRoWy
 
@@ -17,7 +17,9 @@ The only problem with this code is that the page is \~75x larger than it needs t
 Now here's my implementation: https://github.com/LiamSwayne/liamswayne.github.io/blob/main/docs/scaling.html
 
 It's almost an exact copy but devoid of dependencies. As a result, it loads much faster and doesn't incur unnecessary bandwidth costs. In this case the costs were offloaded to The jQuery Foundation, but it's best to have no costs whatsoever. The size of the page has gone from `329 KB` to less than `4 KB` without any minification. That is a `98.7%` decrease. The CSS normalization is too small to matter and good practice in general, but the use of jQuery in what takes 20 lines of JavaScript is needless bloat that has no affect on the user experience other than making the page load slower. Web pages with multiple libraries or frameworks will never load as fast as vanilla JS. If you want to make a scalable website, an off-the-shelf framework is probably not your best option.
-### Issue № 3. Vanilla JavaScript is a more transferable skill than any framework.
+
+If you want to execute behaviors that are non-essential to the look of the page (analytics, tracking, etc...), the `defer` attribute can be used to load large libraries and scripts without affecting the page's loading speed.
+## Issue № 3. Vanilla JavaScript is a more transferable skill than any framework.
 
 My criticism of Chris Coyier's Codepen project not to say that he is untalented, far from it, as I had to copy his code just to get what I was looking for to work. However, it highlights a growing problem with front-end development. When your "blank slate" html document contains a framework or library, your front-end's default state is mediocre loading, and it can only get worse from there.
 
