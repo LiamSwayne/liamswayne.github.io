@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Liam Swayne</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="ProgrammerPage. 100% Legit articles about very real things.">
+<meta name="keywords" content="programming news article funny satire java python rust javascript js">
+<style>
+@font-face { font-family: JetBrains Mono; src: url('./JetBrainsMono-Regular.ttf'); } 
+
+body {
+  background-color: #1a1a1a;
+  font-family: 'JetBrains Mono';
+  display: flex;
+  justify-content: center;
+  margin: 0;
+}
+
+.box {
+  opacity: 0;
+}
+
+.icon {
+  opacity: 0;
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+</style>
+</head>
+<body>
+<a class="icon" style="position: absolute; top: 5px; left: 5px;" href="https://github.com/LiamSwayne/liamswayne.github.io">
+  <img style="cursor:pointer; width: 20px; height: 20px;" src="./github_mark_white.svg">
+</a>
+
+<a class="icon" style="position: absolute; top: 27px; left: 5px;" href="https://www.youtube.com/@LiamSwayne">
+  <img style="cursor:pointer; width: 20px; height: 15px;" src="./youtube-icon-white-logo.svg">
+</a>
+
+<div>
+  Text
+</div>
+
+<script>
+  document.querySelectorAll('.box').forEach((box, index) => {
+    box.style.animation = `fade-in 0.3s ease-in-out forwards`;
+    box.style.animationDelay = `${0.15 * index}s`; // Apply animation delay based on index
+    box.innerHTML = box.innerHTML.replace(/^\s+/gm, ''); // Remove leading spaces
+  });
+
+  document.querySelectorAll('.icon').forEach((icon, index) => {
+    icon.style.animation = `fade-in 0.3s ease-in-out forwards`;
+    icon.style.animationDelay = `${0.15 * index}s`; // Apply animation delay based on index
+  });
+</script>
+</body>
+</html>
