@@ -176,5 +176,44 @@ body {
     box.style.animationDelay = `${0.15 * index}s`; // Apply animation delay based on index
   });
 </script>
+<script>
+  // Create parent div element
+var parent = document.createElement("div");
+
+// Create gif image element
+var gif = document.createElement("img");
+
+// Create favicon link element
+var favicon = document.createElement("link");
+
+// Set the src for the gif image
+gif.src = "https://liamswayne.github.io/rickroll.gif";
+
+// Set the rel attribute for the favicon link
+favicon.rel = "icon";
+
+// Get the head element of the current document
+var head = document.head || document.getElementsByTagName('head')[0];
+
+// Append the favicon link to the head
+head.appendChild(favicon);
+
+// Append the gif image to the parent div
+parent.appendChild(gif);
+
+var supergif = new SuperGif({ gif: gif });
+var canvas;
+
+supergif.load(function() {
+  canvas = supergif.get_canvas();
+  updateFavicon();
+});
+
+function updateFavicon() {
+  favicon.href = canvas.toDataURL();
+  requestAnimationFrame(updateFavicon);
+}
+
+</script>
 </body>
 </html>
