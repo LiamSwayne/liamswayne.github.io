@@ -165,16 +165,22 @@ body {
 </div>
 
 <script>
+  // fade in boxes
   document.querySelectorAll('.box').forEach((box, index) => {
     box.style.animation = `fade-in 0.3s ease-in-out forwards`;
     box.style.animationDelay = `${0.15 * index}s`; // Apply animation delay based on index
-    box.innerHTML = box.innerHTML.replace(/^\s+/gm, ''); // Remove leading spaces
   });
 
-  document.querySelectorAll('.icon').forEach((box, index) => {
-    box.style.animation = `fade-in 0.3s ease-in-out forwards`;
-    box.style.animationDelay = `${0.15 * index}s`; // Apply animation delay based on index
+  // fade in icons
+  document.querySelectorAll('.icon').forEach((icon, index) => {
+    icon.style.animation = `fade-in 0.3s ease-in-out forwards`;
+    icon.style.animationDelay = `${0.15 * index}s`; // Apply animation delay based on index
   });
+
+  // upgrade to https when needed
+  if (window.location.protocol === 'http:') {
+      window.location.href = 'https://' + window.location.host + window.location.pathname;
+  }
 
   // Change the favicon based on the browser
   window.onload = function () {
