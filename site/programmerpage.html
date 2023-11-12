@@ -167,6 +167,7 @@ body {
 <script>
   // fade in boxes
   document.querySelectorAll('.box').forEach((box, index) => {
+    box.innerHTML = box.innerHTML.replace(/^\s+/gm, ''); // Remove leading spaces
     box.style.animation = `fade-in 0.3s ease-in-out forwards`;
     box.style.animationDelay = `${0.15 * index}s`; // Apply animation delay based on index
   });
