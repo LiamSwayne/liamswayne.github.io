@@ -182,11 +182,11 @@ body {
       window.location.href = 'https://' + window.location.host + window.location.pathname;
   }
 
-  // Change the favicon based on the browser
+  // change the favicon based on the browser
   window.onload = function () {
     const favicon = document.getElementById('favicon');
     if (/Firefox/i.test(navigator.userAgent)) {
-      // For Firefox
+      // for Firefox
       favicon.href = "./rickroll.gif";
     }
   };
