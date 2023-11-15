@@ -38,11 +38,10 @@ jobs:
         uses: actions/deploy-pages@v2
 
   security:
-     environment:
+    environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
       - name: Security and Licence Scan
         uses: ShiftLeftSecurity/scan-action@v1.3.0
-            
