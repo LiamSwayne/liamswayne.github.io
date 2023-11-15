@@ -30,19 +30,22 @@ jobs:
         uses: actions/configure-pages@v3
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
-        with:
           # Upload site directory
           path: './site'
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v2
-  
+
   security:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
-    # This action is under the MIT License, copyright (c) 2020 Team Scan <hello@shiftleft.io>
+    needs: deploy
     steps:
-      - name: Security and Licence Scan
-        uses: ShiftLeftSecurity/scan-action@v1.3.0
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Install Snyk
+        run: |
+          npm install -g snyk
+      - name: Authenticate with Snyk
+        run: snyk auth ${{ secrets.SNYK_TOKEN }}
+      - name: Scan for vulnerabilities
+        run: snyk test
