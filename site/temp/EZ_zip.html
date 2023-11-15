@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>File Compression with client-zip</title>
+</head>
+<body>
+
+  <h1>File Compression with client-zip</h1>
+
+  <input type="file" id="fileInput" multiple>
+  <button onclick="compressFiles()" id="compressButton">Compress Files</button>
+  <p id="statusMessage"></p>
+
+  <script src="https://cdn.jsdelivr.net/npm/client-zip/index.js"></script>
+  <script>
+    async function compressFiles() {
+      // Get the input element
+      const fileInput = document.getElementById('fileInput');
+      const compressButton = document.getElementById('compressButton');
+      const statusMessage = document.getElementById('statusMessage');
+
+      // Retrieve selected files
+      const files = fileInput.files;
+
+      // Check if files are selected
+      if (files.length === 0) {
+        alert("Please select one or more files.");
+        return;
+      }
+
+      // Disable the button during compression
+      compressButton.disabled = true;
+
+      // Update status message
+      statusMessage.textContent = "Compression in progress...";
+
+      // Prepare an array of objects with file information
+      const fileObjects = Array.from(files).map(file => ({
+        name: file.name,
+        lastModified: new Date(file.lastModified),
+        input: file
+      }));
+
+      try {
+        // Create a ZIP file
+        const zipBlob = await clientZip.downloadZip(fileObjects).blob();
+
+        // Create a temporary link to trigger the download
+        const link = document.createElement("a");
+        link.href = URL.createObjectURL(zipBlob);
+        link.download = "compressedFiles.zip";
+        link.click();
+
+        // Remove the temporary link
+        link.remove();
+        
+        // Update status message
+        statusMessage.textContent = "Compression completed!";
+      } catch (error) {
+        console.error("Error compressing files:", error);
+        alert("Error compressing files. Please try again.");
+      } finally {
+        // Enable the button after compression
+        compressButton.disabled = false;
+      }
+    }
+  </script>
+
+</body>
+</html>
