@@ -1,5 +1,7 @@
 # Submitting an empty link title to Hacker News
 
+The [post](https://news.ycombinator.com/item?id=39493837) and [permalink](https://web.archive.org/web/20240225012301/https://news.ycombinator.com/item?id=39493837).
+
 There are many, _many_ whitespace characters. Arguably too many, as seen on [Namecheap's page](https://www.namecheap.com/visual/font-generator/whitespace/) dedicated to them:
 <img width="503" alt="Screenshot 2024-02-24 at 12 34 09 PM" src="https://github.com/LiamSwayne/liamswayne.github.io/assets/108629034/88d9c114-cb67-4ff8-9b00-6ea61bc4b994">
 
