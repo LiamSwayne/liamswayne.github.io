@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unzip File</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js"></script>
+</head>
+<body>
+    <h1>Unzip File</h1>
+    <button id="unzipButton">Unzip File</button>
+
+    <script>
+        document.getElementById('unzipButton').addEventListener('click', function() {
+            var zipUrl = 'https://product-images.unrono.com/1c36323d-89fa-49e7-a04a-2b7430cffde9.zip';
+            
+            var anchor = document.createElement('a');
+            anchor.style.display = 'none';
+            anchor.href = zipUrl;
+            anchor.download = '1c36323d-89fa-49e7-a04a-2b7430cffde9.zip';
+            document.body.appendChild(anchor);
+
+            anchor.click();
+
+            document.body.removeChild(anchor);
+        });
+
+        window.addEventListener('DOMContentLoaded', function() {
+            document.addEventListener('click', function(event) {
+                var target = event.target;
+                if (target.tagName.toLowerCase() === 'a' && target.href.endsWith('.zip')) {
+                    event.preventDefault();
+                    var zipUrl = target.href;
+                    fetch(zipUrl)
+                        .then(response => response.arrayBuffer())
+                        .then(arrayBuffer => {
+                            return JSZip.loadAsync(arrayBuffer);
+                        })
+                        .then(zip => {
+                            zip.forEach((relativePath, zipEntry) => {
+                                console.log(zipEntry.name);
+                            });
+                        })
+                        .catch(error => {
+                            console.error('Error unzipping file:', error);
+                        });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
