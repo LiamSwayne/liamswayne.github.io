@@ -30,17 +30,22 @@ jobs:
           test -d site && echo "Yes, site directory exists" || echo "No, site directory doesn't exist"
           echo "Creating site directory if it doesn't exist"
           mkdir -p site
-          echo "Checking site directory contents:"
+          echo "Creating a test index.html"
+          echo "<html><body><h1>Test Page</h1><p>This is a temporary test page.</p></body></html>" > site/index.html
+          echo "Site directory contents:"
           ls -la site
-          echo "Creating a test index.html if site is empty"
-          if [ ! "$(ls -A site)" ]; then
-            echo "<html><body><h1>Test Page</h1><p>This is a temporary test page.</p></body></html>" > site/index.html
-            echo "Created test index.html"
-          fi
+      - name: Upload artifact with debug
+        run: |
+          echo "Trying to upload pages artifact manually"
+          # Create archive of site directory
+          tar -czf artifact.tar.gz ./site
+          echo "Archive created, contents:"
+          ls -la artifact.tar.gz
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: './site'
+          name: github-pages
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v3
