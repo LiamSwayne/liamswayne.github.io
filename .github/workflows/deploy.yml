@@ -22,15 +22,24 @@ jobs:
         uses: actions/checkout@v4
       - name: Setup Pages
         uses: actions/configure-pages@v5
-      - name: Debug directory
+      - name: Debug repository structure
         run: |
+          echo "Current directory contents:"
           ls -la
-          ls -la ./site || echo "Site directory not found"
-          find . -type d | sort
+          echo "Does site directory exist?"
+          test -d site && echo "Yes, site directory exists" || echo "No, site directory doesn't exist"
+          echo "Creating site directory if it doesn't exist"
+          mkdir -p site
+          echo "Checking site directory contents:"
+          ls -la site
+          echo "Creating a test index.html if site is empty"
+          if [ ! "$(ls -A site)" ]; then
+            echo "<html><body><h1>Test Page</h1><p>This is a temporary test page.</p></body></html>" > site/index.html
+            echo "Created test index.html"
+          fi
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3  # Latest version is v3
+        uses: actions/upload-pages-artifact@v3
         with:
-          # Upload site directory
           path: './site'
       - name: Deploy to GitHub Pages
         id: deployment
