@@ -12,10 +12,7 @@ concurrency:
   group: "deployments"
   cancel-in-progress: false
 jobs:
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -26,26 +23,23 @@ jobs:
         run: |
           echo "Current directory contents:"
           ls -la
-          echo "Does site directory exist?"
-          test -d site && echo "Yes, site directory exists" || echo "No, site directory doesn't exist"
           echo "Creating site directory if it doesn't exist"
           mkdir -p site
           echo "Creating a test index.html"
           echo "<html><body><h1>Test Page</h1><p>This is a temporary test page.</p></body></html>" > site/index.html
           echo "Site directory contents:"
           ls -la site
-      - name: Upload artifact with debug
-        run: |
-          echo "Trying to upload pages artifact manually"
-          # Create archive of site directory
-          tar -czf artifact.tar.gz ./site
-          echo "Archive created, contents:"
-          ls -la artifact.tar.gz
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: './site'
-          name: github-pages
+  deploy:
+    needs: build
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v3
