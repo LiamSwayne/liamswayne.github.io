@@ -22,8 +22,13 @@ jobs:
         uses: actions/checkout@v4
       - name: Setup Pages
         uses: actions/configure-pages@v5
+      - name: Debug directory
+        run: |
+          ls -la
+          ls -la ./site || echo "Site directory not found"
+          find . -type d | sort
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v4  # Update to v4
+        uses: actions/upload-pages-artifact@v3  # Latest version is v3
         with:
           # Upload site directory
           path: './site'
