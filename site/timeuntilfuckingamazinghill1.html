@@ -2,201 +2,51 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>HILL 1 — Countdown</title>
+  <title>Hill 1 Countdown</title>
   <style>
-    :root{
-      --bg:#0b1020;
-      --card:#0f1724;
-      --accent:#7dd3fc;
-      --muted:#9aa7c0;
-      --white:#ffffff;
+    body {
+      margin: 0;
+      padding: 2em;
+      background: white;
+      color: black;
+      font-family: sans-serif;
+      text-align: center;
     }
-    html,body{
-      height:100%;
-      margin:0;
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-      background: linear-gradient(180deg,#051025 0%, var(--bg) 100%);
-      color:var(--white);
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
+    h1 {
+      font-size: 3em;
+      margin-bottom: 1em;
     }
-    .wrap{
-      min-height:100%;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding:32px;
-      box-sizing:border-box;
-    }
-    .card{
-      width:100%;
-      max-width:920px;
-      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      border-radius:18px;
-      padding:40px;
-      box-shadow: 0 8px 30px rgba(2,6,23,0.6), inset 0 1px 0 rgba(255,255,255,0.02);
-      text-align:center;
-      border:1px solid rgba(255,255,255,0.04);
-    }
-    h1{
-      margin:0 0 10px 0;
-      font-size:22px;
-      letter-spacing:2px;
-      color:var(--muted);
-      font-weight:600;
-    }
-    .title {
-      font-size:40px;
-      margin:6px 0 24px 0;
-      letter-spacing:6px;
-      font-weight:800;
-    }
-    .big-seconds{
-      font-weight:900;
-      font-size:96px;
-      line-height:0.95;
-      letter-spacing:-2px;
-      margin:8px 0;
-      color:var(--accent);
-      text-shadow: 0 6px 30px rgba(0,0,0,0.6);
-    }
-    .sub{
-      margin-top:8px;
-      color:var(--muted);
-      font-size:14px;
-    }
-    .breakdown{
-      display:flex;
-      gap:10px;
-      justify-content:center;
-      margin-top:22px;
-      flex-wrap:wrap;
-    }
-    .unit{
-      background:rgba(255,255,255,0.03);
-      padding:12px 16px;
-      border-radius:10px;
-      min-width:84px;
-    }
-    .num{
-      font-size:20px;
-      font-weight:800;
-      display:block;
-      color:var(--white);
-    }
-    .label{ font-size:12px; color:var(--muted); text-transform:uppercase; margin-top:6px; letter-spacing:1px; }
-    .small-note{
-      margin-top:18px;
-      color:var(--muted);
-      font-size:13px;
-    }
-    .live {
-      margin-top:18px;
-      font-weight:800;
-      color:#bef264; /* green-ish */
-      font-size:20px;
-    }
-
-    /* responsive */
-    @media (max-width:520px){
-      .big-seconds{ font-size:64px; }
-      .title{ font-size:28px; }
-      .card{ padding:26px; border-radius:14px; }
+    #seconds {
+      font-size: 4em;
+      font-weight: normal; /* not bold */
     }
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <div class="card" role="region" aria-label="Countdown until Hill 1">
-      <h1>EVENT</h1>
-      <div class="title">HILL 1 — COUNTDOWN</div>
-
-      <div id="seconds" class="big-seconds" aria-live="polite">—</div>
-      <div class="sub" id="targetInfo">Target: Sep 13, 2025 — 07:00 (Eastern)</div>
-
-      <div class="breakdown" aria-hidden="false">
-        <div class="unit"><span id="days" class="num">0</span><span class="label">Days</span></div>
-        <div class="unit"><span id="hours" class="num">0</span><span class="label">Hours</span></div>
-        <div class="unit"><span id="minutes" class="num">0</span><span class="label">Minutes</span></div>
-        <div class="unit"><span id="secs" class="num">0</span><span class="label">Seconds</span></div>
-      </div>
-
-      <div class="small-note">Countdown is fixed to Eastern time (America/New_York). On Sep 13, 2025 at 07:00 ET the equivalent UTC instant is 2025-09-13T11:00:00Z.</div>
-      <div id="liveMsg" class="live" style="display:none">HILL 1 — IT'S TIME!</div>
-    </div>
-  </div>
+  <h1>Hill 1!!!!!!</h1>
+  <div id="seconds">—</div>
 
   <script>
-    (function(){
-      // Target date/time: 2025-09-13 07:00 in America/New_York.
-      // On 2025-09-13 this is Eastern Daylight Time (UTC-4),
-      // so the equivalent UTC instant is 2025-09-13T11:00:00Z.
-      // We construct the target using UTC to make the countdown correct
-      // for visitors in any timezone.
-      const targetUtcMs = Date.UTC(2025, 8, 13, 11, 0, 0); // months: 0=Jan, so 8 = Sept
+    // Target: 2025-09-13 07:00 ET (which is 2025-09-13T11:00:00Z UTC)
+    const targetUtcMs = Date.UTC(2025, 8, 13, 11, 0, 0);
 
-      const elSeconds = document.getElementById('seconds');
-      const elDays = document.getElementById('days');
-      const elHours = document.getElementById('hours');
-      const elMinutes = document.getElementById('minutes');
-      const elSecs = document.getElementById('secs');
-      const elLive = document.getElementById('liveMsg');
-      const elTargetInfo = document.getElementById('targetInfo');
+    const elSeconds = document.getElementById('seconds');
 
-      // Display the target time in the user's locale too (for clarity)
-      try {
-        const tzStr = Intl.DateTimeFormat().resolvedOptions().timeZone || 'your local time';
-        const localized = new Date(targetUtcMs).toLocaleString(undefined, {
-          year:'numeric', month:'short', day:'numeric',
-          hour:'2-digit', minute:'2-digit', second:'2-digit',
-          hour12:false, timeZone: tzStr
-        });
-        elTargetInfo.textContent = `Target: Sep 13, 2025 — 07:00 (America/New_York). Your local equivalent: ${localized} (${tzStr}).`;
-      } catch(e){
-        // ignore; leave default
+    function update() {
+      const now = Date.now();
+      let diff = Math.floor((targetUtcMs - now) / 1000);
+
+      if (diff <= 0) {
+        elSeconds.textContent = "0";
+        clearInterval(loop);
+        return;
       }
 
-      function update() {
-        const now = Date.now();
-        let diff = Math.floor((targetUtcMs - now) / 1000); // seconds remaining (integer)
+      elSeconds.textContent = diff.toLocaleString();
+    }
 
-        if (diff <= 0) {
-          // event reached or passed
-          elSeconds.textContent = '0';
-          elDays.textContent = '0';
-          elHours.textContent = '0';
-          elMinutes.textContent = '0';
-          elSecs.textContent = '0';
-          elLive.style.display = 'block';
-          // stop updating
-          clearInterval(loop);
-          return;
-        }
-
-        // Format big seconds with thousands separators
-        elSeconds.textContent = diff.toLocaleString();
-
-        // Breakdown
-        const days = Math.floor(diff / (24*3600));
-        diff -= days * 24*3600;
-        const hours = Math.floor(diff / 3600);
-        diff -= hours * 3600;
-        const minutes = Math.floor(diff / 60);
-        const secs = diff - minutes*60;
-
-        elDays.textContent = String(days);
-        elHours.textContent = String(hours).padStart(2,'0');
-        elMinutes.textContent = String(minutes).padStart(2,'0');
-        elSecs.textContent = String(secs).padStart(2,'0');
-      }
-
-      // Initial update
-      update();
-      // Update every 250ms for snappy seconds display (seconds value only changes every 1s,
-      // but this keeps the UI responsive if system clock changes). Uses minimal CPU.
-      const loop = setInterval(update, 250);
-    })();
+    update();
+    const loop = setInterval(update, 1000);
   </script>
 </body>
 </html>
