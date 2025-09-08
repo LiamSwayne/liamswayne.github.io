@@ -1,95 +1,12 @@
 <!DOCTYPE html>
 <html>
-<head>
-<title>Liam Swayne</title>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Liam Swayne's website. Difficult to look at honestly.">
-<meta name="keywords" content="programming java python javascript js html css">
-<style>
-@font-face { font-family: JetBrains Mono; src: url('./JetBrainsMono-Regular.ttf'); } 
-
-body {
-  background-color: #1a1a1a;
-  font-family: 'JetBrains Mono';
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-  margin: 0;
-}
-
-.box {
-  width: 800px;
-  background-color: #333333;
-  border-radius: 12px;
-  margin-bottom: 10px;
-  line-height: 1.5;
-  color: #FFFFFF;
-  padding: 8px;
-  padding-left: 12px;
-  opacity: 0;
-  animation: fade-in 0.3s ease-in-out forwards;
-  font-weight: 500;
-  font-size: 20px;
-  display: block;
-  text-align: center;
-}
-
-.icon {
-  opacity:0;
-  animation:fade-in 0.3s;
-}
-
-@keyframes fade-in {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-</style>
-</head>
-<body>
-<a class="icon" style="position: absolute; top: 5px; left: 5px;" href="https://github.com/LiamSwayne/liamswayne.github.io">
-  <img style="cursor:pointer; width: 20px; height: 20px;" src="./github_mark_white.svg">
-</a>
-
-<a class="icon" style="position: absolute; top: 27px; left: 5px;" href="https://www.youtube.com/@LiamSwayne">
-  <img style="cursor:pointer; width: 20px; height: 15px;" src="./youtube-icon-white-logo.svg">
-</a>
-  
-<div style="animation:fade-in 0.3s; text-align:center; margin-top:10px; margin-bottom:10px; font-size:20px; color:#FFFFFF">
-  LiamSwayne
-</div>
-
-<div class="box">
-    Read <a style="color:inherit" href="./programmerpage">ProgrammerPage</a> for satirical, occasionally accurate news!
-</div>
-
-<div class="box">
-  Contact me at liamtswayne@gmail.com
-</div>
-
-<script>
-  // fade in boxes
-  document.querySelectorAll('.box').forEach((box, index) => {
-    box.style.animation = `fade-in 0.3s ease-in-out forwards`;
-    box.style.animationDelay = `${0.15 * index}s`; // Apply animation delay based on index
-  });
-
-  // fade in icons
-  document.querySelectorAll('.icon').forEach((icon, index) => {
-    icon.style.animation = `fade-in 0.3s ease-in-out forwards`;
-    icon.style.animationDelay = `${0.15 * index}s`; // Apply animation delay based on index
-  });
-
-  // upgrade to https when needed
-  if (window.location.protocol === 'http:') {
-      window.location.href = 'https://' + window.location.host + window.location.pathname;
-  }
-</script>
-</body>
+  <head>
+    <meta http-equiv="refresh" content="0; url=https://github.com/LiamSwayne" />
+    <title>Redirecting...</title>
+  </head>
+  <body>
+    <script>
+      window.location.replace("https://github.com/LiamSwayne");
+    </script>
+  </body>
 </html>
