@@ -1,0 +1,1539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script type="text/javascript" src="https://web-static.archive.org/_static/js/bundle-playback.js?v=FC38Hc5A" charset="utf-8"></script>
+<script type="text/javascript" src="https://web-static.archive.org/_static/js/wombat.js?v=txqj7nKC" charset="utf-8"></script>
+<script>window.RufflePlayer=window.RufflePlayer||{};window.RufflePlayer.config={"autoplay":"on","unmuteOverlay":"hidden","showSwfDownload":true};</script>
+<script type="text/javascript" src="https://web-static.archive.org/_static/js/ruffle/ruffle.js"></script>
+<script type="text/javascript">
+    __wm.init("https://web.archive.org/web");
+  __wm.wombat("https://eduauth.org/","20250513153517","https://web.archive.org/","web","https://web-static.archive.org/_static/",
+	      "1747150517");
+</script>
+<link rel="stylesheet" type="text/css" href="https://web-static.archive.org/_static/css/banner-styles.css?v=p7PEIJWi" />
+<link rel="stylesheet" type="text/css" href="https://web-static.archive.org/_static/css/iconochive.css?v=3PDvdIFv" />
+<!-- End Wayback Rewrite JS Include -->
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduAuth - Secure Authentication</title>
+    <link rel="icon" type="image/x-icon" href="/web/20250513153517im_/https://eduauth.org/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1"><link rel="stylesheet" href="https://web.archive.org/web/20250513153517cs_/https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+    <style>
+        @font-face {
+            font-family: 'Inter';
+            font-style: normal;
+            font-weight: 400;
+            font-display: swap;
+            src: url('/web/20250513153517im_/https://eduauth.org/Inter.woff2') format('woff2');
+        }
+        
+        @font-face {
+            font-family: 'Inter';
+            font-style: normal;
+            font-weight: 700;
+            font-display: swap;
+            src: url('/web/20250513153517im_/https://eduauth.org/Inter.woff2') format('woff2');
+        }
+    
+        :root {
+            --primary-blue: #1a73e8;
+            --light-blue: #e8f0fe;
+            --very-light-blue: #f8faff;
+            --dark-grey: #333333;
+            --light-grey: #f0f0f0;
+        }
+    
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--very-light-blue);
+            color: black;
+        }
+    
+        .container {
+            max-width: 900px;
+            width: 100%;
+            margin: 0 auto;
+            box-sizing: border-box;
+            padding: 0 20px;
+        }
+    
+        .navbar {
+            background-color: rgba(26, 115, 232, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 8px 16px;
+            position: sticky;
+            top: 16px;
+            margin: 16px;
+            border-radius: 50px;
+            z-index: 1000;
+        }
+    
+        .navbar ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: space-around;
+        }
+    
+        .navbar li a {
+            color: black;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 8px 16px;
+            border-radius: 25px;
+            transition: background-color 0.3s;
+        }
+    
+        .navbar li a:hover {
+            background-color: rgba(26, 115, 232, 0.2);
+        }
+    
+        .logo-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            padding: 0px 0;
+        }
+    
+        .logo-image {
+            width: 50px;
+            height: auto;
+            margin-right: 15px;
+            margin-top: -20px;
+        }
+    
+        .heading-large {
+            font-size: 40px;
+            margin: 0;
+        }
+    
+        .content {
+            padding: 16px 32px;
+        }
+    
+        .welcome-section {
+            text-align: center;
+        }
+    
+        .tagline {
+            font-size: 24px;
+            color: var(--dark-grey);
+        }
+    
+        .feature-section {
+            margin-top: 8px;
+        }
+    
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+        }
+    
+        .feature-item {
+            border: 2px solid var(--light-grey);
+            padding: 16px;
+            border-radius: 10px;
+            background-color: white;
+        }
+    
+        .security-section, .performance-section, .pricing-section {
+            background-color: rgba(26, 115, 232, 0.05);
+            padding: 32px;
+            border-radius: 5px;
+        }
+
+        .security-section {
+            margin-top: 8px;
+        }
+
+        .performance-section, .pricing-section {
+            margin-top: 16px;
+        }
+    
+        .performance-stats {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 16px;
+        }
+    
+        .stat-item {
+            text-align: center;
+        }
+    
+        .stat-item-middle {
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+    
+        .stat-value {
+            font-size: 32px;
+            font-weight: bold;
+            color: black;
+        }
+    
+        .stat-label {
+            font-size: 14px;
+            color: var(--dark-grey);
+        }
+    
+        .pricing-options {
+            display: flex;
+            justify-content: center;
+            align-items: stretch;
+            gap: 32px;
+            margin-top: 32px;
+        }
+    
+        .pricing-plan {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            text-align: center;
+            background-color: white;
+            padding: 32px;
+            border-radius: 10px;
+        }
+    
+        .price {
+            font-size: 48px;
+            font-weight: bold;
+            color: black;
+            margin-bottom: 8px;
+        }
+    
+        .price-detail {
+            font-size: 16px;
+            color: var(--dark-grey);
+            margin-bottom: 16px;
+        }
+    
+        .price-description {
+            margin-top: auto;
+            font-size: 14px;
+            color: var(--dark-grey);
+        }
+    
+        .or-divider {
+            font-size: 40px;
+            font-weight: bold;
+            color: var(--primary-blue);
+            display: flex;
+            align-items: center;
+        }
+    
+        .heading-large {
+            font-size: 48px;
+            font-weight: bold;
+            color: black;
+            margin-bottom: 16px;
+        }
+    
+        .heading-medium {
+            font-size: 28px;
+            font-weight: bold;
+            color: black;
+            margin-bottom: 16px;
+        }
+    
+        .heading-small {
+            font-size: 20px;
+            font-weight: bold;
+            color: black;
+            margin-bottom: 8px;
+        }
+    
+        .draw {
+            transition: color 0.25s;
+            position: relative;
+            overflow: hidden;
+        }
+    
+        .draw::before,
+        .draw::after {
+            content: '';
+            position: absolute;
+            border: 4px solid transparent;
+            width: 0;
+            height: 0;
+            box-sizing: border-box;
+            border-radius: 8px;
+        }
+    
+        .draw::before {
+            top: 10px;
+            left: 10px;
+        }
+    
+        .draw::after {
+            bottom: 10px;
+            right: 10px;
+        }
+    
+        .draw.active {
+            color: var(--primary-blue);
+        }
+    
+        .draw.active::before,
+        .draw.active::after {
+            width: calc(100% - 20px);
+            height: calc(100% - 20px);
+        }
+    
+        .draw.active::before {
+            border-top-color: var(--primary-blue);
+            border-right-color: var(--primary-blue);
+            transition:
+                width 0.25s ease-out,
+                height 0.25s ease-out 0.25s;
+        }
+    
+        .draw.active::after {
+            border-bottom-color: var(--primary-blue);
+            border-left-color: var(--primary-blue);
+            transition:
+                border-color 0s ease-out 0.5s,
+                width 0.25s ease-out 0.5s,
+                height 0.25s ease-out 0.75s;
+        }
+    
+        .draw.fading::before,
+        .draw.fading::after {
+            border-width: 0;
+            transition: border-width 0.3s ease-out;
+        }
+    
+        .meet::after {
+            top: 10px;
+            left: 10px;
+        }
+    
+        .meet.active::before {
+            border-top-color: var(--primary-blue);
+            border-right-color: var(--primary-blue);
+        }
+    
+        .meet.active::after {
+            border-bottom-color: var(--primary-blue);
+            border-left-color: var(--primary-blue);
+            transition:
+                height 0.25s ease-out,
+                width 0.25s ease-out 0.25s;
+        }
+    
+        section.draw.meet {
+            padding: 32px;
+            border-radius: 12px;
+        }
+    
+        .footer {
+            text-align: center;
+            padding: 14px 10px;
+            font-size: 13px;
+            color: white;
+            position: relative;
+            overflow: hidden;
+            border-top-left-radius: 30px;
+            border-top-right-radius: 30px;
+            margin-top: 14px;
+        }
+    
+        .footer::before {
+            content: "";
+            position: absolute;
+            top: -500px;
+            left: -100px;
+            width: 2400px;
+            height: 1400px;
+            background: linear-gradient(
+                -45deg,
+                #006eff,
+                #a0c5ff,
+                #327dff,
+                #bdd6ff
+            );
+            animation: gradientBG 10s ease infinite;
+            z-index: -1;
+        }
+    
+        @keyframes gradientBG {
+            0% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+            25% {
+                transform: translate(-25%, 25%) rotate(-20deg);
+            }
+            50% {
+                transform: translate(-50%, 0) rotate(0deg);
+            }
+            75% {
+                transform: translate(-25%, -25%) rotate(10deg);
+            }
+            100% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+        }
+    
+        .security-graphic {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 32px;
+            gap: 0;
+        }
+    
+        .icon-container {
+            flex: 0 0 auto;
+            position: relative;
+            width: 80px;
+            height: 80px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    
+        .security-icon {
+            width: 64px;
+            height: 64px;
+            position: relative;
+            z-index: 2;
+        }
+    
+        .icon-container::before {
+            content: '';
+            position: absolute;
+            top: -45%;
+            left: -45%;
+            right: 0;
+            bottom: 0;
+            width: 180%;
+            height: 180%;
+            background: radial-gradient(circle, #e6edfd 0%, #e6edfd 30%, #e6edfd00 70%);
+            z-index: 1;
+        }
+    
+        .bit-stream {
+            flex: 1;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 0;
+            margin-left: -10px;
+            margin-right: -10px;
+            height: 20px;
+            overflow: visible;
+            position: relative;
+        }
+    
+        .bit {
+            font-size: 14px;
+            font-family: monospace;
+            color: var(--primary-blue);
+            transition: opacity 0.3s ease;
+            margin: 0 1px;
+            position: relative;
+            z-index: 0;
+        }
+    
+        #contact {
+            margin-bottom: -14px;
+        }
+    
+        .authority-levels-feature {
+            margin-top: 20px;
+            padding: 24px;
+            background-color: #fff;
+            border-radius: 10px;
+            border: 2px solid var(--light-grey);
+        }
+    
+        .authority-level {
+            display: flex;
+            align-items: center;
+            margin-bottom: 7px;
+        }
+    
+        .middle-authority-level {
+            margin-top: 7px;
+            margin-bottom: 8px;
+        }
+    
+        .sms-icon {
+            width: 70%;
+            display: block;
+            margin: 10px auto;
+            height: auto;
+        }
+    
+        .feature-item.authenticator-app .feature-content {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+        }
+    
+        .feature-item.authenticator-app .qr-code-icon {
+            width: 36px;
+            height: 36px;
+            margin-right: 10px;
+        }
+    
+        .feature-item.authenticator-app .feature-text {
+            flex: 1;
+        }
+    
+        .feature-item.email-auth .feature-content {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+        }
+    
+        .feature-item.email-auth .email-icon {
+            width: 36px;
+            height: 36px;
+            margin-right: 10px;
+        }
+    
+        .feature-item.email-auth .feature-text {
+            flex: 1;
+        }
+    
+        .role-name {
+            flex: 0 0 120px;
+            margin-right: 10px;
+            display: flex;
+            align-items: center;
+            height: 100%;
+            text-align: center;
+            justify-content: center;
+        }
+    
+        .role-description {
+            flex: 1;
+        }
+    
+        @keyframes dashedLineAnimation {
+            0% {
+                background-position: 0 0;
+            }
+            100% {
+                background-position: 0 30px;
+            }
+        }
+    
+        .role-connector {
+            width: 2px;
+            height: 30px;
+            margin-left: 60px;
+            margin-top: -5px;
+            margin-bottom: -5px;
+            background-image: linear-gradient(to bottom, #1a73e8 50%, transparent 50%);
+            background-size: 2px 10px;
+            animation: dashedLineAnimation 2s linear infinite;
+        }
+    
+        .feature-item.unlimited-usage .feature-content {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+        }
+    
+        .feature-item.unlimited-usage .infinity-icon {
+            width: 36px;
+            height: 36px;
+            margin-right: 10px;
+        }
+    
+        .feature-item.unlimited-usage .feature-text {
+            flex: 1;
+        }
+    
+        .feature-item.customization .feature-content {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+        }
+    
+        .feature-item.customization .customization-icon {
+            width: 36px;
+            height: 36px;
+            margin-right: 10px;
+        }
+    
+        .feature-item.customization .feature-text {
+            flex: 1;
+        }
+
+        .aws-text-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: radial-gradient(circle, #e6edfd 0%, #e6edfd 30%, #e6edfd00 70%);
+            width: 70px;
+            height: 70px;
+        }
+
+        .aws-text {
+            font-size: 24px;
+            font-weight: bold;
+            color: #1a73e8;
+            z-index: 2;
+            position: relative;
+        }
+
+        .aws-text-container::before {
+            content: '';
+            position: absolute;
+            top: -45%;
+            left: -45%;
+            right: 0;
+            bottom: 0;
+            width: 180%;
+            height: 180%;
+            background: radial-gradient(circle, #e6edfd 0%, #e6edfd 30%, #e6edfd00 70%);
+            z-index: 1;
+        }
+
+        a {
+            color: var(--primary-blue);
+            text-decoration: underline;
+        }
+
+        /* MIT LICENSE Ryan https://codepen.io/hexagoncircle/pen/MWMqXbK */
+        :root {
+            --shiny-cta-bg: #6883ff;
+            --shiny-cta-bg-subtle: #6883ff;
+            --shiny-cta-fg: #ffffff;
+            --shiny-cta-highlight: #0000ff;
+            --shiny-cta-highlight-subtle: #0031ff;
+        }
+
+        @property --gradient-angle {
+            syntax: "<angle>";
+            initial-value: 0deg;
+            inherits: false;
+        }
+
+        @property --gradient-angle-offset {
+            syntax: "<angle>";
+            initial-value: 0deg;
+            inherits: false;
+        }
+
+        @property --gradient-percent {
+            syntax: "<percentage>";
+            initial-value: 40%; /* Increased from 5% to 10% */
+            inherits: false;
+        }
+
+        @property --gradient-shine {
+            syntax: "<color>";
+            initial-value: white;
+            inherits: false;
+        }
+
+        .shiny-cta {
+            --animation: gradient-angle linear infinite;
+            --duration: 3s;
+            --shadow-size: 2px;
+            isolation: isolate;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            outline-offset: 4px;
+            padding: 1.25rem 2.5rem;
+            font-family: inherit;
+            font-size: 1.125rem;
+            line-height: 1.2;
+            border: 2px solid transparent;
+            border-radius: 360px;
+            color: var(--shiny-cta-fg);
+            background: linear-gradient(var(--shiny-cta-bg), var(--shiny-cta-bg))
+                padding-box,
+                conic-gradient(
+                    from calc(var(--gradient-angle) - var(--gradient-angle-offset)),
+                    transparent,
+                    var(--shiny-cta-highlight) var(--gradient-percent),
+                    var(--gradient-shine) calc(var(--gradient-percent) * 2),
+                    var(--shiny-cta-highlight) calc(var(--gradient-percent) * 3),
+                    transparent calc(var(--gradient-percent) * 4)
+                )
+                border-box;
+            box-shadow: inset 0 0 0 1px var(--shiny-cta-bg-subtle);
+        }
+
+        .shiny-cta::before,
+        .shiny-cta::after,
+        .shiny-cta span::before {
+            content: "";
+            pointer-events: none;
+            position: absolute;
+            inset-inline-start: 50%;
+            inset-block-start: 50%;
+            translate: -50% -50%;
+            z-index: -1;
+        }
+
+        .shiny-cta:active {
+            translate: 0 1px;
+        }
+
+        /* Dots pattern */
+        .shiny-cta::before {
+            --size: calc(100% - var(--shadow-size) * 3);
+            --position: 2px;
+            --space: calc(var(--position) * 2);
+            width: var(--size);
+            height: var(--size);
+            background: radial-gradient(
+                circle at var(--position) var(--position),
+                #000000 calc(var(--position) / 4),
+                transparent 0
+            )
+            padding-box;
+            background-size: var(--space) var(--space);
+            background-repeat: space;
+            -webkit-mask-image: conic-gradient(
+                from calc(var(--gradient-angle) + 45deg),
+                black,
+                transparent 10% 90%,
+                black
+            );
+            mask-image: conic-gradient(
+                from calc(var(--gradient-angle) + 45deg),
+                black,
+                transparent 10% 90%,
+                black
+            );
+            border-radius: inherit;
+            opacity: 0.8;
+            z-index: -1;
+        }
+
+        /* Inner shimmer */
+        .shiny-cta::after {
+            --animation: shimmer linear infinite;
+            width: 100%;
+            aspect-ratio: 1;
+            background: linear-gradient(
+                -50deg,
+                transparent,
+                var(--shiny-cta-highlight),
+                transparent
+            );
+            -webkit-mask-image: radial-gradient(circle at bottom, transparent 40%, black);
+            mask-image: radial-gradient(circle at bottom, transparent 40%, black);
+            opacity: 0.6;
+        }
+
+        .shiny-cta span {
+            z-index: 1;
+        }
+
+        .shiny-cta span::before {
+            --size: calc(100% + 1rem);
+            width: var(--size);
+            height: var(--size);
+            box-shadow: inset 0 -1ex 2rem 4px var(--shiny-cta-highlight);
+            opacity: 0;
+        }
+
+        /* Animate */
+        .shiny-cta {
+            --transition: 800ms cubic-bezier(0.25, 1, 0.5, 1);
+            transition: var(--transition);
+            transition-property: --gradient-angle-offset, --gradient-percent,
+                --gradient-shine;
+        }
+
+        .shiny-cta,
+        .shiny-cta::before,
+        .shiny-cta::after {
+            animation: var(--animation) var(--duration),
+            var(--animation) calc(var(--duration) / 0.4) reverse paused;
+            animation-composition: add;
+        }
+
+        .shiny-cta span::before {
+            transition: opacity var(--transition);
+            -webkit-animation: calc(var(--duration) * 1.5) breathe linear infinite;
+            animation: calc(var(--duration) * 1.5) breathe linear infinite;
+        }
+
+        .shiny-cta:is(:hover, :focus-visible) {
+            --gradient-percent: 50%; /* Increased from 20% to 30% */
+            --gradient-angle-offset: 95deg;
+            --gradient-shine: var(--shiny-cta-highlight-subtle);
+        }
+
+        .shiny-cta:is(:hover, :focus-visible),
+        .shiny-cta:is(:hover, :focus-visible)::before,
+        .shiny-cta:is(:hover, :focus-visible)::after {
+            -webkit-animation-play-state: running;
+            animation-play-state: running;
+        }
+
+        .shiny-cta:is(:hover, :focus-visible) span::before {
+            opacity: 1;
+        }
+
+        @-webkit-keyframes gradient-angle {
+            to {
+                --gradient-angle: 360deg;
+            }
+        }
+
+        @keyframes gradient-angle {
+            to {
+                --gradient-angle: 360deg;
+            }
+        }
+
+        @-webkit-keyframes shimmer {
+            to {
+                rotate: 360deg;
+            }
+        }
+
+        @keyframes shimmer {
+            to {
+                rotate: 360deg;
+            }
+        }
+
+        @-webkit-keyframes breathe {
+            from,
+            to {
+                scale: 1;
+            }
+            50% {
+                scale: 1.2;
+            }
+        }
+
+        @keyframes breathe {
+            from,
+            to {
+                scale: 1;
+            }
+            50% {
+                scale: 1.2;
+            }
+        }
+
+        .contact-section {
+            background-color: rgba(26, 115, 232, 0.05);
+            padding: 32px;
+            border-radius: 5px;
+            margin-top: 16px;
+        }
+
+        .contact-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 24px;
+        }
+
+        .contact-option {
+            flex: 1;
+            text-align: center;
+        }
+
+        .contact-link {
+            display: inline-block;
+            margin-top: 12px;
+            font-size: 18px;
+            color: var(--primary-blue);
+            text-decoration: none;
+        }
+
+        .contact-link:hover {
+            text-decoration: underline;
+        }
+
+        .contact-divider {
+            width: 4px;
+            height: 80px;
+            background-color: #e0e0e0;
+            margin: 0 20px;
+            border-radius: 2px;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
+            opacity: 0;
+            transition: opacity 0.3s ease-out;
+        }
+
+        .modal.show {
+            opacity: 1;
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #ffffff, #f0f4ff);
+            margin: 5% auto;
+            padding: 30px;
+            border: none;
+            width: 90%;
+            max-width: 500px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transform: translateY(-50px);
+            opacity: 0;
+            transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+        }
+
+        .modal.show .modal-content {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #ffffff, #f0f4ff);
+            margin: 5% auto;
+            padding: 30px;
+            border: none;
+            width: 90%;
+            max-width: 500px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .close {
+            color: #6883ff;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #0031ff;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .modal-header {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .modal-header h2 {
+            color: #333;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .modal-body {
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .input-label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: calc(100% - 26px);
+            padding: 12px;
+            border: 2px solid #d0d9ff;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #6883ff;
+            box-shadow: 0 0 0 3px rgba(104, 131, 255, 0.2);
+        }
+
+        .modal-footer {
+            text-align: center;
+        }
+
+        #bookCallBtn {
+            background: linear-gradient(135deg, #6883ff, #0031ff);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        #bookCallBtn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(104, 131, 255, 0.3);
+        }
+
+        #bookCallBtn:active {
+            transform: translateY(0);
+        }
+
+        #bookCallBtn:disabled {
+            background: #b0b0b0;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="navbar">
+            <ul>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#security">Security</a></li>
+                <li><a href="#performance">Performance</a></li>
+                <li><a href="#pricing">Pricing</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+
+        <div class="content">
+            <div class="welcome-section">
+                <div class="logo-container">
+                    <img src="/web/20250513153517im_/https://eduauth.org/eduauth-logo.svg" alt="EduAuth Logo" class="logo-image">
+                    <div class="heading-large">EduAuth</div>
+                </div>
+                <div class="tagline">Secure multi-factor authentication for universities and colleges.</div>
+            </div>
+
+            <section class="feature-section draw meet" id="features">
+                <div class="heading-medium">Features</div>
+                <div class="feature-grid">
+                    <div class="feature-item">
+                        <div class="heading-small">SMS authentication</div>
+                        <svg id="sms-icon" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 1596.197 344.5126" class="sms-icon">
+                            <path class="cls-5" d="M1596.197,344.5126c-8.834-8.1454-27.7178-12.4352-40.9026-47.2208-11.1738-29.4801-14.2825-64.871-14.9644-90.5078v-25.6973c.042-1.7286.0852-3.2415.1208-4.5073l-.1208-.0377v-4.2855c0-95.1344-77.1218-172.2561-172.2561-172.2561H172.2561C77.1216,0,0,77.1217,0,172.2561v.0004c0,95.1344,77.1216,172.2561,172.2561,172.2561h1174.5352c56.1194,0,106.6504-13.2294,142.0007-34.3566,42.1125,28.9978,85.6064,33.6492,107.405,34.3566Z" fill="#4c8def"/>
+                            <text id="sms-text" fill="#fff" font-family="Inter" font-size="150px" font-weight="700" transform="translate(92 235)">Your code is 341...</text>
+                        </svg>
+                        <div>Supports all smart devices with SMS.</div>
+                    </div>
+                    <div class="feature-item authenticator-app">
+                        <div class="heading-small">Authenticator app</div>
+                        <div class="feature-content">
+                            <img src="/web/20250513153517im_/https://eduauth.org/qr-code-icon.svg" alt="Authenticator App Icon" class="qr-code-icon">
+                            <div class="feature-text">Support for popular authenticator apps with QR code setup.</div>
+                        </div>
+                    </div>
+                    <div class="feature-item email-auth">
+                        <div class="heading-small">Email authentication</div>
+                        <div class="feature-content">
+                            <img src="/web/20250513153517im_/https://eduauth.org/email-icon.svg" alt="Email Icon" class="email-icon">
+                            <div class="feature-text">Secure codes sent to verified email addresses.</div>
+                        </div>
+                    </div>
+                    <div class="feature-item customization">
+                        <div class="heading-small">Custom branding</div>
+                        <div class="feature-content">
+                          <img src="/web/20250513153517im_/https://eduauth.org/customization.svg" alt="Customization Icon" class="customization-icon">
+                          <div class="feature-text">Customize the login experience with your university's branding.</div>
+                        </div>
+                      </div>
+                    <div class="feature-item unlimited-usage">
+                        <div class="heading-small">Unlimited usage</div>
+                        <div class="feature-content">
+                            <img src="/web/20250513153517im_/https://eduauth.org/infinity_symbol.svg" alt="Infinity Symbol" class="infinity-icon">
+                            <div class="feature-text">All authentication methods allow unlimited usage.</div>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="heading-small">Custom combinations</div>
+                        <div>Combine multiple authentication methods for greater security.</div>
+                    </div>
+                </div>
+                
+                <div class="authority-levels-feature">
+                    <div class="heading-small">Hierarchical access control</div>
+                    <div class="authority-level">
+                        <div class="role-name"><strong>Administrators</strong></div>
+                        <div class="role-description">Full system control, including account creation and deletion.</div>
+                    </div>
+                    <div class="role-connector"></div>
+                    <div class="authority-level middle-authority-level">
+                        <div class="role-name"><strong>Faculty supervisors</strong></div>
+                        <div class="role-description">Manage departmental access and approve authentication requests for students unable to login.</div>
+                    </div>
+                    <div class="role-connector"></div>
+                    <div class="authority-level">
+                        <div class="role-name"><strong>Students</strong></div>
+                        <div class="role-description">Create and manage their own accounts, with approval from faculty supervisors.</div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="security-section draw meet" id="security">
+                <div class="heading-medium">Security built on Amazon Web Services</div>
+                <div>
+                    EduAuth uses Amazon Web Services' encrypted database, which has <strong>a breach-free record</strong> since it's inception in 2012. AWS is <a href="https://web.archive.org/web/20250513153517/https://aws.amazon.com/compliance/fedramp/">FedRAMP certified</a> and relied on by the US Government.
+                </div>
+                <div class="security-graphic">
+                    <div class="icon-container">
+                        <img src="/web/20250513153517im_/https://eduauth.org/university-icon.svg" alt="University Icon" class="security-icon">
+                    </div>
+                    <div class="bit-stream left-stream"></div>
+                    <div class="icon-container">
+                        <img src="/web/20250513153517im_/https://eduauth.org/eduauth-logo.svg" alt="EduAuth Logo" class="security-icon">
+                    </div>
+                    <div class="bit-stream right-stream"></div>
+                    <div class="icon-container aws-text-container">
+                        <div class="aws-text">AWS</div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="performance-section draw meet" id="performance">
+                <div class="heading-medium">Lightning-fast performance</div>
+                <div>EduAuth is optimized for speed, ensuring minimal impact on your users' experience.</div>
+                <div class="performance-stats">
+                    <div class="stat-item">
+                        <div class="stat-value">50%</div>
+                        <div class="stat-label">Faster Load Speeds</div>
+                    </div>
+                    <div class="stat-item stat-item-middle">
+                        <div class="stat-value">&lt;100ms</div>
+                        <div class="stat-label">Average Response Time</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">5x</div>
+                        <div class="stat-label">Faster Than Traditional 2FA</div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="pricing-section draw meet" id="pricing">
+                <div class="heading-medium">Choose your pricing option</div>
+                <div class="pricing-options">
+                    <div class="pricing-plan">
+                        <div class="price">$1</div>
+                        <div class="price-detail">/ user / month</div>
+                        <div class="price-description">
+                            Fixed rate for all features. No hidden fees.
+                        </div>
+                    </div>
+                    <div class="or-divider">OR</div>
+                    <div class="pricing-plan">
+                        <div class="price">50%</div>
+                        <div class="price-detail">of your current cost</div>
+                        <div class="price-description">
+                            Cut your current 2FA bill in <strong>half</strong>.
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="contact-section draw meet" id="contact">
+                <div>Interested in securing your university or college?</div>
+                <div class="heading-medium">Contact us</div>
+                <div class="contact-options">
+                    <div class="contact-option">
+                        <div class="heading-small">Email us</div>
+                        <a href="/web/20250513153517/https://eduauth.org/cdn-cgi/l/email-protection#c9aaa6a7bda8aabd89acadbca8bcbda1e7a6bbae" class="contact-link"><span class="__cf_email__" data-cfemail="3a5955544e5b594e7a5f5e4f5b4f4e521455485d">[email&#160;protected]</span></a>
+                    </div>
+                    <div class="contact-divider"></div>
+                    <div class="contact-option">
+                        <div class="heading-small">Book a call</div>
+                        <button class="shiny-cta" id="openModalBtn">
+                            <span>Schedule now</span>
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <div class="footer">
+            <div>EduAuth by Stagmoon Studios LLC | EduAuth is not affiliated with Amazon Web Services.</div>
+        </div>
+    </div>
+
+    <div id="bookCallModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div class="modal-header">
+                <h2>Schedule your call</h2>
+            </div>
+            <div class="modal-body">
+                <form id="bookCallForm">
+                    <div class="form-group">
+                        <div class="input-label">Name</div>
+                        <input type="text" id="name" name="name" required placeholder="Your name or your organization's name">
+                    </div>
+                    <div class="form-group">
+                        <div class="input-label">Email</div>
+                        <input type="email" id="email" name="email" required placeholder="your@email.com">
+                    </div>
+                    <div class="form-group">
+                        <div class="input-label">Phone</div>
+                        <input type="tel" id="phone" name="phone" required placeholder="Your phone number">
+                    </div>
+                    <div class="form-group">
+                        <div class="input-label">Preferred Date</div>
+                        <input type="date" id="date" name="date" required>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-label">Preferred Time</div>
+                        <input type="time" id="time" name="time" required>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-label">Timezone</div>
+                        <input type="text" id="timezone" name="timezone" required placeholder="e.g., EST, PST, GMT+2">
+                    </div>
+                    <div class="form-group">
+                        <div class="input-label">Additional Information (optional)</div>
+                        <textarea id="message" name="message" rows="3" placeholder="Any specific topics you'd like to discuss?"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button id="bookCallBtn">Book your call</button>
+            </div>
+        </div>
+    </div>
+
+    <script data-cfasync="false" src="/web/20250513153517js_/https://eduauth.org/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const navLinks = document.querySelectorAll('.navbar a');
+            const navbarHeight = document.querySelector('.navbar').offsetHeight;
+            let isAnimating = {
+                features: false,
+                security: false,
+                performance: false,
+                pricing: false,
+                contact: false
+            };
+    
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href').substring(1);
+                    
+                    if (isAnimating[targetId]) return; // Ignore clicks if this section's animation is in progress
+                    isAnimating[targetId] = true;
+    
+                    const targetElement = document.getElementById(targetId);
+                    const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
+                    const offsetPosition = targetPosition - navbarHeight - 30;
+    
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: 'smooth'
+                    });
+    
+                    // Add active class to target section after a short delay
+                    setTimeout(() => {
+                        targetElement.classList.add('active');
+    
+                        // Start fading animation after 1 second
+                        setTimeout(() => {
+                            targetElement.classList.add('fading');
+    
+                            // Remove both classes after the fading animation is complete
+                            setTimeout(() => {
+                                targetElement.classList.remove('active', 'fading');
+                                isAnimating[targetId] = false; // Animation complete, allow new clicks for this section
+                            }, 300);
+                        }, 1000);
+                    }, 500);
+                });
+            });
+    
+            const leftStream = document.querySelector('.left-stream');
+            const rightStream = document.querySelector('.right-stream');
+    
+            function createBitStream(streamElement) {
+                streamElement.innerHTML = ''; // Clear existing bits
+                const streamWidth = streamElement.offsetWidth;
+                const bitWidth = 10;
+                const minBits = 5;
+                const maxBits = 30;
+                const numBits = Math.max(minBits, Math.min(maxBits, Math.floor(streamWidth / bitWidth)));
+    
+                for (let i = 0; i < numBits; i++) {
+                    const bit = document.createElement('span');
+                    bit.className = 'bit';
+                    bit.textContent = Math.random() < 0.5 ? '0' : '1';
+                    streamElement.appendChild(bit);
+                    
+                    // Immediate flip with random delay
+                    setTimeout(() => {
+                        flipSingleBit(bit);
+                    }, Math.random() * 1000);
+                }
+            }
+    
+            function flipSingleBit(bit) {
+                bit.style.opacity = 0;
+                setTimeout(() => {
+                    bit.textContent = bit.textContent === '0' ? '1' : '0';
+                    bit.style.opacity = 1;
+                }, 150);
+            }
+    
+            function flipBits(streamElement) {
+                const bits = streamElement.querySelectorAll('.bit');
+                bits.forEach((bit, index) => {
+                    setInterval(() => {
+                        flipSingleBit(bit);
+                    }, 1000 + Math.random() * 1000); // Stagger the flipping times
+                });
+            }
+    
+            function updateBitStreams() {
+                createBitStream(leftStream);
+                createBitStream(rightStream);
+                flipBits(leftStream);
+                flipBits(rightStream);
+            }
+    
+            function equalizeBitCounts() {
+                const leftBits = leftStream.querySelectorAll('.bit');
+                const rightBits = rightStream.querySelectorAll('.bit');
+    
+                if (leftBits.length !== rightBits.length) {
+                    const targetCount = Math.max(leftBits.length, rightBits.length);
+                    
+                    while (leftStream.childElementCount < targetCount) {
+                        const bit = document.createElement('span');
+                        bit.className = 'bit';
+                        bit.textContent = Math.random() < 0.5 ? '0' : '1';
+                        leftStream.appendChild(bit);
+                        setTimeout(() => flipSingleBit(bit), Math.random() * 1000);
+                    }
+    
+                    while (rightStream.childElementCount < targetCount) {
+                        const bit = document.createElement('span');
+                        bit.className = 'bit';
+                        bit.textContent = Math.random() < 0.5 ? '0' : '1';
+                        rightStream.appendChild(bit);
+                        setTimeout(() => flipSingleBit(bit), Math.random() * 1000);
+                    }
+    
+                    while (leftStream.childElementCount > targetCount) {
+                        leftStream.removeChild(leftStream.lastChild);
+                    }
+    
+                    while (rightStream.childElementCount > targetCount) {
+                        rightStream.removeChild(rightStream.lastChild);
+                    }
+                }
+            }
+    
+            // Initial creation and animation
+            updateBitStreams();
+    
+            // Run equalization every 20ms
+            setInterval(equalizeBitCounts, 20);
+    
+            // Update on window resize
+            let resizeTimer;
+            window.addEventListener('resize', function() {
+                clearTimeout(resizeTimer);
+                resizeTimer = setTimeout(updateBitStreams, 250); // Debounce resize event
+            });
+        });
+
+        // animate the svg numbers
+        const smsText = document.getElementById('sms-text');
+        const baseText = 'Your code is ';
+        const dots = '...';
+
+        function generateCode() {
+            return Math.floor(Math.random() * 899 + 100).toString();
+        }
+
+        let currentCode = generateCode();
+        let animationFrame;
+
+        function animateSMS() {
+            let fullText = baseText + currentCode + dots;
+            let currentText = fullText;
+            let isDeleting = true;
+            let dotCount = 3;
+            let lastUpdateTime = 0;
+            const updateInterval = 100; // Milliseconds between each character update
+
+            function updateText(timestamp) {
+                if (timestamp - lastUpdateTime > updateInterval) {
+                    lastUpdateTime = timestamp;
+
+                    if (isDeleting) {
+                        if (currentText.length > baseText.length) {
+                            currentText = currentText.slice(0, -1);
+                        } else {
+                            isDeleting = false;
+                            currentCode = generateCode();
+                        }
+                    } else {
+                        if (currentText.length < baseText.length + currentCode.length) {
+                            currentText += currentCode[currentText.length - baseText.length];
+                        } else if (dotCount > 0) {
+                            currentText += '.';
+                            dotCount--;
+                        } else {
+                            cancelAnimationFrame(animationFrame);
+                            setTimeout(animateSMS, 4000); // Wait 4 seconds before starting the next animation
+                            return;
+                        }
+                    }
+                    
+                    smsText.textContent = currentText;
+                }
+                
+                animationFrame = requestAnimationFrame(updateText);
+            }
+            
+            animationFrame = requestAnimationFrame(updateText);
+        }
+
+        // Set initial text
+        smsText.textContent = baseText + currentCode + dots;
+
+        // Start the first animation after 2 seconds
+        setTimeout(animateSMS, 2000);
+
+        // Handle visibility change
+        document.addEventListener('visibilitychange', function() {
+            if (document.hidden) {
+                cancelAnimationFrame(animationFrame);
+            } else {
+                // Restart animation after 2 seconds when page becomes visible again
+                setTimeout(animateSMS, 2000);
+            }
+        });
+
+        // Modal functionality
+        const modal = document.getElementById("bookCallModal");
+        const openModalBtn = document.getElementById("openModalBtn");
+        const closeBtn = document.getElementsByClassName("close")[0];
+        const bookCallBtn = document.getElementById("bookCallBtn");
+        const bookCallForm = document.getElementById("bookCallForm");
+
+        function openModal() {
+            modal.style.display = "block";
+            setTimeout(() => {
+                modal.classList.add("show");
+            }, 10);
+        }
+
+        function closeModal() {
+            modal.classList.remove("show");
+            setTimeout(() => {
+                modal.style.display = "none";
+            }, 300);
+        }
+
+        openModalBtn.onclick = openModal;
+
+        closeBtn.onclick = closeModal;
+
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+
+        bookCallBtn.onclick = async function() {
+            if (!bookCallForm.checkValidity()) {
+                bookCallForm.reportValidity();
+                return;
+            }
+
+            const formData = new FormData(bookCallForm);
+            const data = Object.fromEntries(formData.entries());
+
+            try {
+                bookCallBtn.disabled = true;
+                bookCallBtn.textContent = 'Booking...';
+
+                const response = await fetch('https://web.archive.org/web/20250513153517/https://xsfzzy6xj6hxcdh2m24qd7f55u0acbpx.lambda-url.us-east-1.on.aws', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        action: 'book_call',
+                        ...data
+                    }),
+                });
+
+                const result = await response.json();
+
+                if (result.error) {
+                    console.error('Error booking call:', result.error);
+                    alert('Failed to book call. Please try again.');
+                } else {
+                    alert('Call booked successfully!');
+                    modal.style.display = "none";
+                    bookCallForm.reset();
+                }
+            } catch (error) {
+                console.error('Error booking call:', error);
+                alert('Failed to book call. Please try again.');
+            } finally {
+                bookCallBtn.disabled = false;
+                bookCallBtn.textContent = 'Book Call';
+            }
+        }
+
+        function bookACallClick() {
+            modal.style.display = "block";
+        }
+    </script>
+</body>
+</html><!--
+     FILE ARCHIVED ON 15:35:17 May 13, 2025 AND RETRIEVED FROM THE
+     INTERNET ARCHIVE ON 21:35:11 Sep 10, 2025.
+     JAVASCRIPT APPENDED BY WAYBACK MACHINE, COPYRIGHT INTERNET ARCHIVE.
+
+     ALL OTHER CONTENT MAY ALSO BE PROTECTED BY COPYRIGHT (17 U.S.C.
+     SECTION 108(a)(3)).
+-->
+<!--
+playback timings (ms):
+  captures_list: 1.288
+  exclusion.robots: 0.056
+  exclusion.robots.policy: 0.035
+  esindex: 0.034
+  cdx.remote: 48.639
+  LoadShardBlock: 1306.749 (3)
+  PetaboxLoader3.datanode: 165.022 (4)
+  PetaboxLoader3.resolve: 1147.198 (2)
+  load_resource: 154.091
+-->
