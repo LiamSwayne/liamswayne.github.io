@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>University Admin Dashboard</title>
+    <script src="./show_alert.js"></script>
+    <link rel="icon" type="image/x-icon" href="./favicon.ico">
+    <style>
+        @font-face {
+            font-family: 'Inter';
+            font-style: normal;
+            font-weight: 400;
+            font-display: swap;
+            src: url('./Inter.woff2') format('woff2');
+        }
+        
+        @font-face {
+            font-family: 'Inter';
+            font-style: normal;
+            font-weight: 700;
+            font-display: swap;
+            src: url('./Inter.woff2') format('woff2');
+        }
+
+        :root {
+            --accent-color: #0062ff;
+        }
+
+        body {
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f0f0;
+            min-height: 100vh;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .container {
+            background-color: white;
+            border-radius: 20px;
+            padding: 30px 40px;
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .title {
+            color: var(--accent-color);
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 30px;
+            font-weight: 700;
+        }
+
+        .input-label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        input[type="text"], input[type="color"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-family: 'Inter';
+            max-width: 100px;
+        }
+
+        #universityLogo {
+            height: 40px !important;
+            width: 100% !important;
+            cursor: pointer;
+        }
+
+        button {
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        button::before {
+            content: "";
+            position: absolute;
+            top: -500px;
+            left: -100px;
+            width: 2400px;
+            height: 1400px;
+            background: linear-gradient(
+                -45deg,
+                #006eff,
+                #a0c5ff,
+                #327dff,
+                #bdd6ff
+            );
+            animation: gradientBG 10s ease infinite;
+        }
+
+        button span {
+            position: relative;
+            z-index: 1;
+        }
+
+        button:hover::before {
+            animation-play-state: paused;
+        }
+
+        @keyframes gradientBG {
+            0% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+            25% {
+                transform: translate(-25%, 25%) rotate(-20deg);
+            }
+            50% {
+                transform: translate(-50%, 0) rotate(0deg);
+            }
+            75% {
+                transform: translate(-25%, -25%) rotate(10deg);
+            }
+            100% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+        }
+
+        .color-inputs {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .color-input {
+            width: 40%;
+            background-color: #f5f5f5;
+            padding: 15px;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .color-picker {
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+
+        .hex-input-container {
+            display: flex;
+            align-items: center;
+            border-radius: 4px;
+            padding: 2px 5px;
+        }
+
+        .hash-symbol {
+            color: #666;
+            margin-right: 4px;
+            margin-top: -22px;
+        }
+
+        .hex-input {
+            width: 100px !important;
+            border: none;
+            outline: none;
+            font-family: 'Inter';
+            background-color: white;
+            border: 1px solid #ccc;
+        }
+
+        .file-input-wrapper {
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .file-input-wrapper input[type=file] {
+            font-size: 100px;
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0;
+            cursor: pointer;
+            height: 40px !important;
+            width: 100% !important;
+        }
+
+        .file-input-wrapper .file-input-button {
+            border: 2px dashed #ccc;
+            border-radius: 4px;
+            padding: 8px;
+            display: inline-block;
+            width: 100%;
+            box-sizing: border-box;
+            text-align: center;
+            color: #666;
+            cursor: pointer;
+        }
+
+        #preview-container {
+            width: 100%;
+            height: 340px;
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            margin: 0 auto 20px;
+            border: 1px solid #ccc;
+        }
+
+        #preview-background {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+        }
+
+        #preview-card-wrapper {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #preview-card {
+            width: 160px;
+            height: 200px;
+            border-radius: 10px;
+            padding: 20px 10px 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        #preview-logo-container {
+            width: 100%;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        #preview-logo {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            padding-left: 16px;
+            padding-right: 16px;
+        }
+
+        .preview-input {
+            width: 80%;
+            height: 20px;
+            background-color: rgba(255, 255, 255, 0.3);
+            margin: 8px 0;
+            border-radius: 5px;
+        }
+
+        #preview-button {
+            width: 80%;
+            height: 24px;
+            margin-top: 15px;
+            border-radius: 15px;
+        }
+
+        .description {
+            font-size: 14px;
+            color: #666;
+            margin-top: -3px;
+            margin-bottom: 4px;
+        }
+
+        .token-generation-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .token-info {
+            flex-grow: 1;
+            padding-right: 20px;
+        }
+
+        #generateToken {
+            width: 120px;
+            padding-left: 20px;
+            padding-right: 20px;
+            white-space: nowrap;
+        }
+
+        hr {
+            margin: 20px -40px;
+            border: 0;
+            border-top: 4px solid #eee;
+        }
+
+        .input-label {
+            margin-bottom: 5px;
+        }
+
+        .description {
+            margin-top: 0;
+        }
+
+        #exitUrl, #loginUrl, #minOrgMethods {
+            width: 100%;
+            max-width: none;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/@jaames/iro@5"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="title">University Admin Dashboard</div>
+        
+        <div class="input-label">University name</div>
+        <input type="text" id="universityName" name="universityName">
+        
+        <div class="color-inputs">
+            <div class="color-input">
+                <div class="input-label">Primary color</div>
+                <div id="primaryColorPicker" class="color-picker"></div>
+                <div class="hex-input-container">
+                    <span class="hash-symbol">#</span>
+                    <input type="text" id="primaryHexInput" class="hex-input" placeholder="000000">
+                </div>
+            </div>
+            <div class="color-input">
+                <div class="input-label">Secondary color</div>
+                <div id="secondaryColorPicker" class="color-picker"></div>
+                <div class="hex-input-container">
+                    <span class="hash-symbol">#</span>
+                    <input type="text" id="secondaryHexInput" class="hex-input" placeholder="000000">
+                </div>
+            </div>
+        </div>
+        
+        <div class="input-label">University logo</div>
+        <div class="file-input-wrapper">
+            <div class="file-input-button">Drag & drop a file</div>
+            <input type="file" id="universityLogo" accept="image/*">
+        </div>
+
+        <div class="input-label">Preview</div>
+        <div id="preview-container">
+            <div id="preview-background"></div>
+            <div id="preview-card-wrapper">
+                <div id="preview-card">
+                    <div id="preview-logo-container">
+                        <img id="preview-logo" src="" alt="Preview Logo">
+                    </div>
+                    <div class="preview-input"></div>
+                    <div class="preview-input"></div>
+                    <div id="preview-button"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="input-label">Default exit URL</div>
+        <p class="description">EduAuth will redirect the user to this URL after successful authentication if a redirect URL is not attached to the request.</p>
+        <input type="text" id="exitUrl" name="exitUrl">
+        
+        <div class="input-label">University login URL</div>
+        <p class="description">Users will be redirected to this URL if their session expires.</p>
+        <input type="text" id="loginUrl" name="loginUrl">
+        
+        <div class="input-label">Minimum required organization methods (min. 0, max 4.)</div>
+        <p class="description">Set the minimum number of verification methods required for authentication, excluding your university's native password step. Individuals can set their required verification methods to a greater number.</p>
+        <input type="text" id="minOrgMethods" name="minOrgMethods">
+        
+        <button id="saveChanges"><span>Save changes</span></button>
+
+        <hr>
+
+        <div class="token-generation-container">
+            <div class="token-info">
+                <div class="input-label">Generate new secret token</div>
+                <p class="description">This token is used for secure communication with the EduAuth API.</p>
+            </div>
+            <button id="generateToken"><span>Generate</span></button>
+        </div>
+    </div>
+
+    <script>
+        const primaryColorPicker = new iro.ColorPicker("#primaryColorPicker", {
+            width: 150,
+            color: "#007bff"
+        });
+    
+        const secondaryColorPicker = new iro.ColorPicker("#secondaryColorPicker", {
+            width: 150,
+            color: "#5ebf76"
+        });
+    
+        const primaryHexInput = document.getElementById("primaryHexInput");
+        const secondaryHexInput = document.getElementById("secondaryHexInput");
+        const saveButton = document.getElementById("saveChanges");
+        const fileInputButton = document.querySelector(".file-input-button");
+        const universityNameInput = document.getElementById("universityName");
+        const minOrgMethodsInput = document.getElementById("minOrgMethods");
+    
+        // Update hex inputs initially, cut off the hash symbol
+        primaryHexInput.value = primaryColorPicker.color.hexString.substring(1);
+        secondaryHexInput.value = secondaryColorPicker.color.hexString.substring(1);
+    
+        // Update hex input when color picker changes
+        primaryColorPicker.on('color:change', function(color) {
+            primaryHexInput.value = color.hexString.substring(1);
+        });
+    
+        secondaryColorPicker.on('color:change', function(color) {
+            secondaryHexInput.value = color.hexString.substring(1);
+        });
+    
+        // Update color picker when hex input changes
+        primaryHexInput.addEventListener('change', function() {
+            primaryColorPicker.color.hexString = '#' + this.value;
+        });
+    
+        secondaryHexInput.addEventListener('change', function() {
+            secondaryColorPicker.color.hexString = '#' + this.value;
+        });
+
+        const fileInput = document.getElementById("universityLogo");
+        const previewLogo = document.getElementById('preview-logo');
+
+        // Set default image
+        previewLogo.src = "./your_logo_here.svg";
+
+        async function fetchAndSetLogo(universityName) {
+            // Fetch and set the university logo
+            const logoUrl = `https://uni-logos.s3.amazonaws.com/${universityName}`;
+            document.getElementById('preview-logo').src = logoUrl;
+        }
+    
+        fileInput.addEventListener('change', function(event) {
+            const files = event.target.files;
+            if (files.length > 1) {
+                showAlert('Please select only one file.');
+                this.value = ''; // Clear the file input
+                return;
+            }
+
+            const file = files[0];
+            if (file) {
+                if (file.type.startsWith('image/')) {
+                    fileInputButton.textContent = file.name;
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        previewLogo.src = e.target.result;
+                        previewLogo.onload = function() {
+                            const aspectRatio = this.naturalWidth / this.naturalHeight;
+                            if (aspectRatio > 1) {
+                                // Landscape logo
+                                this.style.width = '100%';
+                                this.style.height = 'auto';
+                            } else {
+                                // Portrait or square logo
+                                this.style.height = '100%';
+                                this.style.width = 'auto';
+                            }
+                        }
+                    }
+                    reader.readAsDataURL(file);
+                } else {
+                    showAlert('Drag and drop a valid image file.');
+                    this.value = ''; // Clear the file input
+                    fileInputButton.textContent = 'Drag & drop a file';
+                    previewLogo.src = "./your_logo_here.svg";
+                }
+            } else {
+                fileInputButton.textContent = 'Choose File';
+                previewLogo.src = "./your_logo_here.svg";
+            }
+        });
+
+        // Modify the existing event listener for university name input
+        universityNameInput.addEventListener('input', debounce(async () => {
+            const schoolName = universityNameInput.value.trim().toLowerCase();
+            if (schoolName !== '' && schoolName.length <= 200 && schoolName !== null) {
+                try {
+                    const response = await fetch(`https://n4g7gele16.execute-api.us-east-1.amazonaws.com/stage/server?university=${schoolName}`);
+                    const data = await response.json();
+                    
+                    if (data.error) {
+                        console.log('Error fetching university data:', data.error);
+                        showAlert('Error fetching university data: ' + data.error);
+                        return;
+                    }
+
+                    if (data.colors) {
+                        console.log('Applying colors:', data.colors);
+                        const color1 = '#' + data.colors.substring(0, 6);
+                        const color2 = '#' + data.colors.substring(6, 12);
+                        
+                        primaryColorPicker.color.hexString = color1;
+                        secondaryColorPicker.color.hexString = color2;
+                        
+                        primaryHexInput.value = color1.substring(1);
+                        secondaryHexInput.value = color2.substring(1);
+                    } else {
+                        console.log('Unexpected response format:', data);
+                        showAlert('Unexpected response from server. Please try again.');
+                    }
+
+                    if (data.exitUrl) {
+                        console.log('Exit URL:', data.exitUrl);
+                        document.getElementById('exitUrl').value = data.exitUrl;
+                    }
+
+                    if (data.loginUrl) {
+                        document.getElementById('loginUrl').value = data.loginUrl;
+                    }
+
+                    if (data.minimumOrgMethodsRequired) {
+                        minOrgMethodsInput.value = data.minimumOrgMethodsRequired.toString();
+                    }
+
+                    // Fetch and set the logo
+                    await fetchAndSetLogo(schoolName);
+                } catch (error) {
+                    console.log('Error fetching colors:', error);
+                    showAlert('Error fetching university colors. Please try again.');
+                }
+            }
+        }, 300));
+    
+        function debounce(func, wait) {
+            let timeout;
+            return function executedFunction(...args) {
+                const later = () => {
+                    clearTimeout(timeout);
+                    func(...args);
+                };
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait);
+            };
+        }
+
+        saveButton.addEventListener('click', async () => {
+            const universityName = universityNameInput.value.toLowerCase();
+            const primaryColor = primaryColorPicker.color.hexString.substring(1);
+            const secondaryColor = secondaryColorPicker.color.hexString.substring(1);
+            const logoFile = fileInput.files[0];
+            const exitUrl = document.getElementById('exitUrl').value.trim();
+            const loginUrl = document.getElementById('loginUrl').value.trim();
+            const minOrgMethods = minOrgMethodsInput.value;
+
+            if (!universityName) {
+                showAlert('Please enter a university name');
+                return;
+            }
+
+            if (exitUrl === '' || exitUrl === null) {
+                showAlert('Please enter an exit URL');
+                return;
+            }
+
+            if (loginUrl === '' || loginUrl === null) {
+                showAlert('Please enter a university login URL');
+                return;
+            }
+
+            if (minOrgMethods === '' || minOrgMethods === null || minOrgMethods < 0 || minOrgMethods > 4) {
+                showAlert('Please enter a valid number for minimum required organization methods');
+                return;
+            }
+
+            // make sure minOrgMethods is a number
+            if (isNaN(minOrgMethods)) {
+                showAlert('Please enter a valid number for minimum required organization methods');
+                return;
+            }
+
+            const combinedColors = primaryColor + secondaryColor;
+
+            let payload = {
+                universityName: universityName,
+                colors: combinedColors,
+                exitUrl: exitUrl,
+                loginUrl: loginUrl,
+                minOrgMethods: parseInt(minOrgMethods),
+                action: 'save_admin_settings'
+            };
+
+            if (universityName == null || universityName == "" || universityName.length > 200) {
+                showAlert('Please enter a university name');
+                return;
+            }
+
+            if (logoFile) {
+                if (!logoFile.type.startsWith('image/')) {
+                    showAlert('Please select a valid image file for the logo.');
+                    return;
+                }
+                // Convert logo file to base64
+                const base64Logo = await fileToBase64(logoFile);
+                // Add logo to payload
+                payload.logo = base64Logo;
+                payload.logoContentType = logoFile.type;
+                payload.action = 'save_admin_settings';
+            }
+
+            try {
+                const response = await fetch('https://zs1hgwqx03.execute-api.us-east-1.amazonaws.com/default/admin-handler', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(payload)
+                });
+
+                const data = await response.json();
+                console.log('Response:', data);
+
+                if (data.error) {
+                    console.log('Error updating settings:', data.error);
+                    showAlert('An error occurred while updating settings: ' + data.error);
+                    return;
+                }
+
+                showAlert('Settings updated successfully!', 'positive');
+            } catch (error) {
+                console.log('Fetch error:', error);
+                showAlert('An error occurred while updating settings. Please check the console and try again.');
+            }
+        });
+    
+        // Helper function to convert File to base64
+        function fileToBase64(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = () => resolve(reader.result.split(',')[1]);
+                reader.onerror = error => reject(error);
+            });
+        }
+
+        function updatePreview() {
+            const primaryColor = primaryColorPicker.color.hexString;
+            const secondaryColor = secondaryColorPicker.color.hexString;
+            
+            // Function to adjust color (same as on the login page)
+            const adjustColor = (color, amount) => '#' + color.replace(/^#/, '').replace(/../g, color => ('0'+Math.min(255, Math.max(0, parseInt(color, 16) + amount)).toString(16)).substr(-2));
+            
+            // Generate color palettes
+            const bgPalette = [40, 20, 0, -20].map(amount => adjustColor(primaryColor, amount));
+            const cardPalette = [40, 20, 0, -20].map(amount => adjustColor(secondaryColor, amount));
+            
+            // Create gradient for background
+            const bgGradient = `radial-gradient(circle at bottom, ${bgPalette[0]} 20%, ${bgPalette[1]} 20%, ${bgPalette[1]} 28%, ${bgPalette[2]} 28%, ${bgPalette[2]} 36%, ${bgPalette[3]} 36%, ${bgPalette[3]} 44%, ${bgPalette[3]} 44%)`;
+            
+            // Create gradient for card
+            const cardGradient = `radial-gradient(circle at left, ${cardPalette[0]} 35%, ${cardPalette[1]} 35%, ${cardPalette[1]} 50%, ${cardPalette[2]} 50%, ${cardPalette[2]} 65%, ${cardPalette[3]} 65%, ${cardPalette[3]} 80%, ${cardPalette[3]} 80%)`;
+            
+            document.getElementById('preview-background').style.background = bgGradient;
+            document.getElementById('preview-card').style.background = cardGradient;
+            
+            // Set the button to white with a border
+            const previewButton = document.getElementById('preview-button');
+            previewButton.style.backgroundColor = '#00000000';
+            previewButton.style.border = '2px solid white';
+
+            const logoFile = fileInput.files[0];
+            if (logoFile) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    previewLogo.src = e.target.result;
+                    previewLogo.onload = function() {
+                        const aspectRatio = this.naturalWidth / this.naturalHeight;
+                        if (aspectRatio > 1) {
+                            // Landscape logo
+                            this.style.width = '100%';
+                            this.style.height = 'auto';
+                        } else {
+                            // Portrait or square logo
+                            this.style.height = '100%';
+                            this.style.width = 'auto';
+                        }
+                    }
+                }
+                reader.readAsDataURL(logoFile);
+            } else {
+                previewLogo.src = "./your_logo_here.svg";
+            }
+        }
+
+        // Update preview when colors change
+        primaryColorPicker.on('color:change', updatePreview);
+        secondaryColorPicker.on('color:change', updatePreview);
+
+        // Update preview when logo changes
+        fileInput.addEventListener('change', updatePreview);
+
+        // Initial preview update
+        document.addEventListener('DOMContentLoaded', function() {
+            updatePreview();
+        });
+
+        const generateTokenButton = document.getElementById("generateToken");
+
+        function createModal(options) {
+            const modal = document.createElement('div');
+            modal.style.position = 'fixed';
+            modal.style.left = '0';
+            modal.style.top = '0';
+            modal.style.width = '100%';
+            modal.style.height = '100%';
+            modal.style.backgroundColor = 'rgba(0,0,0,0.5)';
+            modal.style.display = 'flex';
+            modal.style.alignItems = 'center';
+            modal.style.justifyContent = 'center';
+            modal.style.zIndex = '1000';
+
+            const content = document.createElement('div');
+            content.style.backgroundColor = 'white';
+            content.style.padding = '20px';
+            content.style.borderRadius = '5px';
+            content.style.maxWidth = '400px';
+            content.style.width = '90%';
+            content.style.position = 'relative';
+
+            const closeButton = document.createElement('button');
+            closeButton.innerHTML = '<span style="margin-right: -1px; margin-bottom: -1px;">×</span>';
+            closeButton.style.position = 'absolute';
+            closeButton.style.top = '10px';
+            closeButton.style.right = '10px';
+            closeButton.style.width = '30px';
+            closeButton.style.height = '30px';
+            closeButton.style.borderRadius = '50%';
+            closeButton.style.border = 'none';
+            closeButton.style.backgroundColor = '#f0f0f0';
+            closeButton.style.fontSize = '20px';
+            closeButton.style.lineHeight = '30px';
+            closeButton.style.padding = '0';
+            closeButton.style.display = 'flex';
+            closeButton.style.alignItems = 'center';
+            closeButton.style.justifyContent = 'center';
+            closeButton.style.cursor = 'pointer';
+            closeButton.addEventListener('click', () => {
+                document.body.removeChild(modal);
+                if (options.onCancel) options.onCancel();
+            });
+
+            const title = document.createElement('h2');
+            title.textContent = options.title;
+            title.style.marginTop = '0';
+
+            const message = document.createElement('p');
+            message.textContent = options.message;
+
+            content.appendChild(closeButton);
+            content.appendChild(title);
+            content.appendChild(message);
+
+            if (options.type === 'confirm') {
+                const buttonContainer = document.createElement('div');
+                buttonContainer.style.display = 'flex';
+                buttonContainer.style.justifyContent = 'flex-end';
+                buttonContainer.style.marginTop = '20px';
+
+                const cancelButton = document.createElement('button');
+                cancelButton.innerHTML = '<span>Cancel</span>';
+                cancelButton.style.marginRight = '10px';
+                cancelButton.addEventListener('click', () => {
+                    document.body.removeChild(modal);
+                    if (options.onCancel) options.onCancel();
+                });
+
+                const confirmButton = document.createElement('button');
+                confirmButton.innerHTML = '<span>Confirm</span>';
+                confirmButton.addEventListener('click', () => {
+                    document.body.removeChild(modal);
+                    if (options.onConfirm) options.onConfirm();
+                });
+
+                buttonContainer.appendChild(cancelButton);
+                buttonContainer.appendChild(confirmButton);
+                content.appendChild(buttonContainer);
+            }
+
+            modal.appendChild(content);
+            document.body.appendChild(modal);
+        }
+
+        function showConfirm(message, onConfirm, onCancel, title = 'Confirm') {
+            createModal({
+                type: 'confirm',
+                title: title,
+                message: message,
+                onConfirm: onConfirm,
+                onCancel: onCancel
+            });
+        }
+
+        generateTokenButton.addEventListener('click', () => {
+            showConfirm(
+                "Are you sure you want to generate a new token? This action cannot be undone, and will invalidate the current token.",
+                async () => {
+                    try {
+                        const response = await fetch('https://zs1hgwqx03.execute-api.us-east-1.amazonaws.com/default/admin-handler', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                action: 'generateToken',
+                                universityName: universityNameInput.value.toLowerCase()
+                            })
+                        });
+
+                        const data = await response.json();
+                        
+                        if (data.error) {
+                            showAlert('Error generating token: ' + data.error);
+                        } else {
+                            showTokenModal(data.token);
+                            // Clear the token from memory
+                            data.token = null;
+                        }
+                    } catch (error) {
+                        console.error('Error:', error);
+                        showAlert('An error occurred while generating the token. Please try again.');
+                    }
+                },
+                () => {
+                    // Do nothing on cancel
+                },
+                "Generate New Token"
+            );
+        });
+
+        function showTokenModal(token) {
+            const modal = document.createElement('div');
+            modal.style.position = 'fixed';
+            modal.style.left = '0';
+            modal.style.top = '0';
+            modal.style.width = '100%';
+            modal.style.height = '100%';
+            modal.style.backgroundColor = 'rgba(0,0,0,0.5)';
+            modal.style.display = 'flex';
+            modal.style.alignItems = 'center';
+            modal.style.justifyContent = 'center';
+            modal.style.zIndex = '1000';
+
+            const content = document.createElement('div');
+            content.style.backgroundColor = 'white';
+            content.style.padding = '20px';
+            content.style.borderRadius = '5px';
+            content.style.maxWidth = '400px';
+            content.style.width = '90%';
+            content.style.position = 'relative';
+
+            const title = document.createElement('h2');
+            title.textContent = 'New Secret Token Generated';
+            title.style.marginTop = '0';
+
+            const description = document.createElement('p');
+            description.textContent = 'This is your new secret token. You won\'t be able to view this token again after closing this modal.';
+
+            const tokenDisplay = document.createElement('div');
+            tokenDisplay.style.backgroundColor = '#f0f0f0';
+            tokenDisplay.style.padding = '10px';
+            tokenDisplay.style.borderRadius = '3px';
+            tokenDisplay.style.marginBottom = '10px';
+            tokenDisplay.style.wordBreak = 'break-all';
+            tokenDisplay.textContent = '••••••••••••••••••••••••••••••••';
+
+            const copyButton = document.createElement('button');
+            copyButton.innerHTML = '<span>Copy Token</span>';
+            copyButton.style.marginRight = '10px';
+            copyButton.addEventListener('click', () => {
+                navigator.clipboard.writeText(token).then(() => {
+                    copyButton.innerHTML = '<span>Copied!</span>';
+                    setTimeout(() => {
+                        copyButton.innerHTML = '<span>Copy Token</span>';
+                    }, 2000);
+                });
+            });
+
+            const closeButton = document.createElement('button');
+            closeButton.innerHTML = '<span style="margin-right: -1px; margin-bottom: -1px;">×</span>';
+            closeButton.style.position = 'absolute';
+            closeButton.style.top = '10px';
+            closeButton.style.right = '10px';
+            closeButton.style.width = '30px';
+            closeButton.style.height = '30px';
+            closeButton.style.borderRadius = '50%';
+            closeButton.style.border = 'none';
+            closeButton.style.backgroundColor = '#f0f0f0';
+            closeButton.style.fontSize = '20px';
+            closeButton.style.lineHeight = '30px';
+            closeButton.style.padding = '0';
+            closeButton.style.display = 'flex';
+            closeButton.style.alignItems = 'center';
+            closeButton.style.justifyContent = 'center';
+            closeButton.style.cursor = 'pointer';
+            closeButton.addEventListener('click', () => {
+                document.body.removeChild(modal);
+                // Clear the token from memory
+                token = null;
+            });
+
+            content.appendChild(closeButton);
+            content.appendChild(title);
+            content.appendChild(description);
+            content.appendChild(tokenDisplay);
+            content.appendChild(copyButton);
+            modal.appendChild(content);
+
+            document.body.appendChild(modal);
+        }
+    </script>
+</body>
+</html>
