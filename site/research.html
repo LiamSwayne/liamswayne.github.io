@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Amplitude evolution visualized — Liam Swayne</title>
+  <!-- Exact Computer Modern Serif from CDN -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/dreampulse/computer-modern-web-font@master/fonts.css">
+  <style>
+    :root{ --measure:74ch; }
+    html,body{height:100%;}
+    body{
+      margin:48px 24px; padding:0 0 80px 0;
+      font-family: 'Computer Modern Serif';
+      font-weight:600;
+      color:#000; background:#fff;
+      -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+      line-height:1.6; font-size:16px;
+      margin-bottom: 80px;
+    }
+    .container{ max-width:var(--measure); margin:0 auto; }
+    header{ text-align:center; margin-bottom:8px }
+    h1{ font-size:30px; margin:0 0 6px 0; font-weight:700; }
+    .byline{ font-size:13px; margin:0 0 18px 0; color:#000; display:block }
+    .text p{ margin:18px 0; text-align:justify; text-justify:inter-word; }
+    .visual-row{ display:flex; gap:28px; margin-top:28px; align-items:flex-start }
+    .main-vis{ flex:1 }
+    .side-vis{ width:320px }
+    canvas{ width:100%; background:transparent; display:block }
+    .gridCanvas{ height:420px }
+    .decorCanvas{ height:420px }
+    .caption{ font-size:13px; margin-top:8px }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Amplitude evolution visualized</h1>
+      <span class="byline">by Liam Swayne</span>
+    </header>
+
+    <div class="text">
+      <p>This document presents computed visualizations of amplitude evolution for a small-scale quantum search setup (four qubits, N = 16). The figures are fixed renderings produced from a short simulation: the intent is to provide clear, publication-ready illustrations that communicate how probability mass redistributes under repeated oracle and diffusion operations.</p>
+
+      <p>For readers less familiar with quantum computing, a quick primer helps make the figures self-contained. A quantum system of four qubits has 2⁴ = 16 basis states; the system's state is a vector of complex amplitudes, one per basis state. Amplitudes are not probabilities themselves — the probability of measuring a basis state is the squared magnitude of its amplitude. Two primitive operations drive Grover's search: the <em>oracle</em>, which flips the phase (sign) of amplitudes for one or more marked states, and the <em>diffusion</em> operator, which performs an inversion of all amplitudes about their mean. Repeated application of oracle + diffusion concentrates probability on the marked subset; however, the process is oscillatory, so applying too many iterations causes probability to rotate away again. The visualizations below show per-state probability (mapped to a black–white scale) and a complementary trace of the marked subset's aggregate probability over iterations, which together illustrate these dynamics.</p>
+    </div>
+
+    <div class="visual-row">
+      <div class="main-vis">
+        <canvas id="grid" class="gridCanvas" aria-label="Amplitude field"></canvas>
+        <div class="caption">Amplitude field after precomputed Grover iterations. Grayscale encodes per-state probability: black = high, white = near-zero. Dot size is uniform to emphasise patterning rather than magnitude.</div>
+      </div>
+
+      <div class="side-vis">
+        <canvas id="decor" class="decorCanvas" aria-label="Coherence lattice"></canvas>
+        <div class="caption">Coherence lattice — schematic of localized coherence and phase-susceptibility across a notional logical lattice. Solid dots indicate strongly occupied states, hollow dots indicate low occupation, and oscillating-outline dots mark locations exhibiting persistent phase superposition/oscillation.</div>
+      </div>
+    </div>
+
+    <div class="text">
+      <p>The amplitude field shows the distribution after repeated Grover iterations with multiple marked items. Choosing several oracle targets spreads amplification across the state space and avoids trivial collapsed patterns; the result is a mid-range grayscale gradient that is visually informative and lends itself to comparison across iterations. The coherence lattice is a companion diagnostic: by encoding oscillatory behaviour we can portray stability versus persistent phase dynamics in a compact grid.</p>
+    </div>
+
+    <div class="visual-row" style="margin-top:6px">
+      <div style="flex:1">
+        <canvas id="chart" style="height:160px" aria-label="Probability trace"></canvas>
+        <div class="caption">Aggregate marked-state probability across iterations (precomputed). The plotted curve helps locate the iteration count that maximizes success probability for the chosen set of marked indices.</div>
+      </div>
+    </div>
+
+    <div class="text" style="margin-bottom: 40px;">
+      <p>The plotted trace shows how the total probability mass on the marked subset varies with iteration. This provides a quantitative complement to the amplitude field: while the field shows per-state detail, the trace indicates the optimal iteration range for measurement if the goal is to maximize detection of any marked element. Together these static figures form a concise visual explanation of amplitude amplification and its practical implications for search tasks.</p>
+    </div>
+
+    <br>
+
+  </div>
+
+  <script>
+    // PARAMETERS
+    const N = 16;
+    const markedIndices = [2,5,9];
+    const nIter = 60; // increased further for richer dynamics
+
+    // helpers
+    function initialState(N){ const a = 1/Math.sqrt(N); return Array.from({length:N}).map(()=>a); }
+    function oracle(state, marked){ const s = state.slice(); for(const m of marked) s[m] = -s[m]; return s; }
+    function diffusion(state){ const N = state.length; const mean = state.reduce((s,x)=>s+x,0)/N; return state.map(a=>2*mean - a); }
+    function applyGroverOnce(state, marked){ let s = oracle(state, marked); s = diffusion(s); return s; }
+
+    // run simulation
+    let state = initialState(N);
+    const history = [state.map(a=>a*a)];
+    for(let it=0; it<nIter; it++){
+      state = applyGroverOnce(state, markedIndices);
+      history.push(state.map(a=>a*a));
+    }
+    const finalProbs = history[history.length-1];
+
+    // grayscale mapping with percentile clamp
+    function percentile(arr, q){ const s = arr.slice().sort((a,b)=>a-b); const idx = Math.floor((s.length-1)*q); return s[Math.max(0,Math.min(s.length-1,idx))]; }
+    const pmin = Math.max(0, percentile(finalProbs, 0.02));
+    const pmax = percentile(finalProbs, 0.98);
+    function mapProbToGray(p, pmin, pmax){ const v = (p - pmin) / Math.max(1e-12, (pmax - pmin)); const g = Math.pow(Math.max(0, Math.min(1, v)), 0.8); const gray = Math.round(255 * (1 - g)); return `rgb(${gray},${gray},${gray})`; }
+
+    // --- amplitude grid (square cells) ---
+    const gridCanvas = document.getElementById('grid'); const ctx = gridCanvas.getContext('2d');
+    function resizeGrid(){ const rect = gridCanvas.getBoundingClientRect(); gridCanvas.width = Math.max(1, Math.floor(rect.width * devicePixelRatio)); gridCanvas.height = Math.max(1, Math.floor(rect.height * devicePixelRatio)); drawGrid(); }
+    function drawGrid(){ const w = gridCanvas.width, h = gridCanvas.height; ctx.clearRect(0,0,w,h); ctx.save(); ctx.scale(devicePixelRatio, devicePixelRatio);
+      const rect = gridCanvas.getBoundingClientRect(); const cw = rect.width, ch = rect.height; const pad = 18; const cols = 4, rows = 4; const availableW = cw - pad*2; const availableH = ch - pad*2; const cellSize = Math.floor(Math.min(availableW/cols, availableH/rows)); const gridW = cellSize*cols; const gridH = cellSize*rows; const originX = pad + (availableW - gridW)/2; const originY = pad + (availableH - gridH)/2;
+      ctx.strokeStyle = '#000'; ctx.lineWidth = 1.25;
+      for(let r=0;r<=rows;r++){ const y = originY + r*cellSize; ctx.beginPath(); ctx.moveTo(originX, y); ctx.lineTo(originX + gridW, y); ctx.stroke(); }
+      for(let c=0;c<=cols;c++){ const x = originX + c*cellSize; ctx.beginPath(); ctx.moveTo(x, originY); ctx.lineTo(x, originY + gridH); ctx.stroke(); }
+      const radius = cellSize * 0.18;
+      for(let r=0;r<rows;r++) for(let c=0;c<cols;c++){ const i = r*cols + c; const cx = originX + c*cellSize + cellSize/2; const cy = originY + r*cellSize + cellSize/2; const p = Math.max(0, finalProbs[i]); const fill = mapProbToGray(p, pmin, pmax);
+        ctx.beginPath(); ctx.arc(cx, cy, radius, 0, Math.PI*2); ctx.fillStyle = fill; ctx.fill(); ctx.strokeStyle = '#000'; ctx.lineWidth = 1; ctx.stroke(); ctx.fillStyle = '#000'; ctx.font = '11px "Computer Modern Serif"'; ctx.textAlign = 'center'; ctx.fillText(i, cx, cy + radius + 14);
+      }
+      ctx.restore(); }
+
+    // --- chart with labels and iteration ticks ---
+    const chart = document.getElementById('chart'); const cctx = chart.getContext('2d');
+    function resizeChart(){ const rect = chart.getBoundingClientRect(); chart.width = Math.max(1, Math.floor(rect.width * devicePixelRatio)); chart.height = Math.max(1, Math.floor(rect.height * devicePixelRatio)); drawChart(); }
+    function drawChart(){ const w = chart.width, h = chart.height; cctx.clearRect(0,0,w,h); cctx.save(); cctx.scale(devicePixelRatio, devicePixelRatio);
+      const rect = chart.getBoundingClientRect(); const cw = rect.width, ch = rect.height; const left = 36, right = cw - 12, top = 8, bottom = ch - 28;
+      cctx.strokeStyle = '#000'; cctx.lineWidth = 1; cctx.beginPath(); cctx.moveTo(left, top); cctx.lineTo(left, bottom); cctx.lineTo(right, bottom); cctx.stroke();
+      cctx.fillStyle = '#000'; cctx.font = '12px "Computer Modern Serif"'; cctx.textAlign = 'center'; cctx.fillText('Iteration', (left+right)/2, ch);
+      cctx.save(); cctx.translate(10, (top+bottom)/2); cctx.rotate(-Math.PI/2); cctx.textAlign = 'center'; cctx.fillText('P(marked set)', 0, 0); cctx.restore();
+
+      const values = history.map(arr => markedIndices.reduce((s,i)=>s+arr[i],0));
+      const Np = values.length;
+      cctx.beginPath(); for(let i=0;i<Np;i++){ const x = left + (i/(Np-1))*(right-left); const y = top + (1 - values[i])*(bottom-top); if(i===0) cctx.moveTo(x,y); else cctx.lineTo(x,y); }
+      cctx.strokeStyle = '#000'; cctx.lineWidth = 2; cctx.stroke();
+      for(let i=0;i<Np;i++){ const x = left + (i/(Np-1))*(right-left); const y = top + (1 - values[i])*(bottom-top); cctx.beginPath(); cctx.arc(x,y,3,0,Math.PI*2); cctx.fillStyle = '#000'; cctx.fill(); }
+
+      // ticks and labels
+      cctx.fillStyle = '#000'; cctx.font = '10px "Computer Modern Serif"'; cctx.textAlign = 'center';
+      let step = 1; if(Np > 24) step = Math.ceil(Np / 24);
+      for(let i=0;i<Np;i++){ const x = left + (i/(Np-1))*(right-left); cctx.beginPath(); cctx.moveTo(x, bottom); cctx.lineTo(x, bottom+6); cctx.stroke(); }
+      for(let i=0;i<Np;i+=step){ const x = left + (i/(Np-1))*(right-left); cctx.fillText(String(i), x, bottom + 18); }
+
+      cctx.restore(); }
+
+    // --- coherence lattice (square cells, oscillating outline) ---
+    const decor = document.getElementById('decor'); const dctx = decor.getContext('2d');
+    function resizeDecor(){ const rect = decor.getBoundingClientRect(); decor.width = Math.max(1, Math.floor(rect.width * devicePixelRatio)); decor.height = Math.max(1, Math.floor(rect.height * devicePixelRatio)); }
+    const decorCols = 6, decorRows = 6; const decorCells = [];
+    for(let r=0;r<decorRows;r++) for(let c=0;c<decorCols;c++){ const idx = r*decorCols + c; const type = (idx % 7 === 0) ? 'oscillate' : ((idx % 3 === 0) ? 'hollow' : 'solid'); decorCells.push({r,c,type}); }
+    let startTime = performance.now();
+    function drawDecor(now){ const w = decor.width, h = decor.height; dctx.clearRect(0,0,w,h); dctx.save(); dctx.scale(devicePixelRatio, devicePixelRatio);
+      const rect = decor.getBoundingClientRect(); const cw = rect.width, ch = rect.height; const pad = 18; const availableW = cw - pad*2; const availableH = ch - pad*2; const cellSize = Math.floor(Math.min(availableW/decorCols, availableH/decorRows)); const gridW = cellSize*decorCols; const gridH = cellSize*decorRows; const originX = pad + (availableW - gridW)/2; const originY = pad + (availableH - gridH)/2;
+      dctx.strokeStyle = '#000'; dctx.lineWidth = 1; for(let r=0;r<=decorRows;r++){ const y = originY + r*cellSize; dctx.beginPath(); dctx.moveTo(originX,y); dctx.lineTo(originX+gridW,y); dctx.stroke(); } for(let c=0;c<=decorCols;c++){ const x = originX + c*cellSize; dctx.beginPath(); dctx.moveTo(x,originY); dctx.lineTo(x,originY+gridH); dctx.stroke(); }
+      const t = (now - startTime)/1000; const radius = cellSize * 0.18; for(const cell of decorCells){ const cx = originX + cell.c*cellSize + cellSize/2; const cy = originY + cell.r*cellSize + cellSize/2; if(cell.type === 'solid'){ dctx.beginPath(); dctx.arc(cx,cy,radius,0,Math.PI*2); dctx.fillStyle = '#000'; dctx.fill(); dctx.strokeStyle = '#000'; dctx.stroke(); } else if(cell.type === 'hollow'){ dctx.beginPath(); dctx.arc(cx,cy,radius,0,Math.PI*2); dctx.fillStyle = '#fff'; dctx.fill(); dctx.strokeStyle = '#000'; dctx.lineWidth = 1.2; dctx.stroke(); } else if(cell.type === 'oscillate'){ const phase = Math.sin(t*1.8 + (cell.r+cell.c)*0.25) * 0.5 + 0.5; const g = Math.round(255 * (1 - phase)); const fill = `rgb(${g},${g},${g})`; dctx.beginPath(); dctx.arc(cx,cy,radius,0,Math.PI*2); dctx.fillStyle = fill; dctx.fill(); dctx.strokeStyle = '#000'; dctx.lineWidth = 1.2; dctx.stroke(); } }
+      dctx.restore(); requestAnimationFrame(drawDecor); }
+
+    // INITIAL DRAW
+    function onResizeAll(){ resizeGrid(); resizeDecor(); resizeChart(); }
+    window.addEventListener('load', ()=>{ onResizeAll(); setTimeout(onResizeAll, 80); });
+    window.addEventListener('resize', onResizeAll);
+    // kick off drawing
+    drawDecor(performance.now());
+
+  </script>
+</body>
+</html>
