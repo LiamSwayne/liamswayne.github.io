@@ -40,15 +40,15 @@
     </header>
 
     <div class="text">
-      <p>This document presents computed visualizations of amplitude evolution for a small-scale quantum search setup (four qubits, N = 16). The figures are fixed renderings produced from a short simulation: the intent is to provide clear, publication-ready illustrations that communicate how probability mass redistributes under repeated oracle and diffusion operations.</p>
+      <p>This document presents computed visualizations of amplitude evolution for a quantum search setup of four qubits, or N = 16. The figures are communicate how robability mass redistributes under repeated oracle and diffusion operations.</p>
 
-      <p>For readers less familiar with quantum computing, a quick primer helps make the figures self-contained. A quantum system of four qubits has 2⁴ = 16 basis states; the system's state is a vector of complex amplitudes, one per basis state. Amplitudes are not probabilities themselves — the probability of measuring a basis state is the squared magnitude of its amplitude. Two primitive operations drive Grover's search: the <em>oracle</em>, which flips the phase (sign) of amplitudes for one or more marked states, and the <em>diffusion</em> operator, which performs an inversion of all amplitudes about their mean. Repeated application of oracle + diffusion concentrates probability on the marked subset; however, the process is oscillatory, so applying too many iterations causes probability to rotate away again. The visualizations below show per-state probability (mapped to a black–white scale) and a complementary trace of the marked subset's aggregate probability over iterations, which together illustrate these dynamics.</p>
+      <p>A quantum system of four qubits has 2⁴ = 16 basis states. The system's state is a vector of amplitudes with a 1:1 correspondence to the basis states. The probability of measuring a basis state is the squared magnitude of its amplitude. Two primitive operations drive Grover's search: the <em>diffusion</em> operator, which performs an inversion of all amplitudes about their mean, and the <em>oracle</em>, which flips the phase (sign) of amplitudes for selected marked states. A single Grover iteration consists of an oracle operation followed by a diffusion operation. Repeated application of these operations concentrates probability on a subset of states. However, the process is oscillatory, so beyond a certain point probabilities begin to diffuse again. The visualizations below show per-state probability (mapped to a grayscale representation) and a trace of the marked subset of concentrated probabilities' aggregate probability of over iterations. In combination, these two visualizations reveal the oscillation of probability concentration throughout Grover iterations.</p>
     </div>
 
     <div class="visual-row">
       <div class="main-vis">
         <canvas id="grid" class="gridCanvas" aria-label="Amplitude field"></canvas>
-        <div class="caption">Amplitude field after precomputed Grover iterations. Grayscale encodes per-state probability: black = high, white = near-zero. Dot size is uniform to emphasise patterning rather than magnitude.</div>
+        <div class="caption">Amplitude field after precomputed Grover iterations. The per-state probability is encoded via linear transformation to grayscale, with black indicating high probability and white indicating low probability.</div>
       </div>
 
       <div class="side-vis">
